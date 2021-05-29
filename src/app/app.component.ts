@@ -8,21 +8,21 @@ import { GeneralEnvironmentConfig } from './core/environment-config'
 import { GENERAL_ENVIRONMENT_CONFIG } from './core/provider-name-token'
 
 const listOfAvatarColor = [
-  "#FFB900",
-  "#D83B01",
-  "#B50E0E",
-  "#E81123",
-  "#B4009E",
-  "#5C2D91",
-  "#0078D7",
-  "#00B4FF",
-  "#008272",
-  "#107C10"
+  '#FFB900',
+  '#D83B01',
+  '#B50E0E',
+  '#E81123',
+  '#B4009E',
+  '#5C2D91',
+  '#0078D7',
+  '#00B4FF',
+  '#008272',
+  '#107C10',
 ]
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
   isCollapsed: boolean
@@ -38,15 +38,16 @@ export class AppComponent implements OnInit, OnDestroy {
     private titleService: Title,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    @Inject(GENERAL_ENVIRONMENT_CONFIG) private generalEnvironmentConfig: GeneralEnvironmentConfig) {
+    @Inject(GENERAL_ENVIRONMENT_CONFIG) private generalEnvironmentConfig: GeneralEnvironmentConfig
+  ) {
     this.isCollapsed = false
-    this.avatarName = ""
-    this.avatarColor = ""
+    this.avatarName = ''
+    this.avatarColor = ''
 
     // Subscribe window inner width
     this.innerWidth = window.innerWidth
     this.resizeObservable = fromEvent(window, 'resize')
-    this.resizeSubscription = this.resizeObservable.subscribe(e => {
+    this.resizeSubscription = this.resizeObservable.subscribe((e) => {
       this.innerWidth = window.innerWidth
     })
   }
@@ -54,11 +55,11 @@ export class AppComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     const appTitle = this.generalEnvironmentConfig.appName
     // Set dynamic title by page
-    this.router
-      .events.pipe(
-        filter(event => event instanceof NavigationEnd),
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
         map(() => {
-          let child = this.activatedRoute.firstChild;
+          let child = this.activatedRoute.firstChild
           while (child?.firstChild) {
             child = child.firstChild
           }
@@ -67,14 +68,15 @@ export class AppComponent implements OnInit, OnDestroy {
           }
           return appTitle
         })
-      ).subscribe((title: string) => {
+      )
+      .subscribe((title: string) => {
         this.titleService.setTitle(title)
       })
 
     // fake
     this.user = {
-      firstName: "Admin",
-      lastName: "A"
+      firstName: 'Admin',
+      lastName: 'A',
     }
     this.avatarName = this.calculateAvatarName(this.user.firstName, this.user.lastName)
     this.avatarColor = this.calculateAvatarColor(this.user.firstName)
@@ -89,7 +91,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public calculateAvatarColor(firstName: string): string {
     let sum = 0
     for (let i = 0; i < firstName.length; i++) {
-      sum += firstName.charCodeAt(i);
+      sum += firstName.charCodeAt(i)
     }
     let colorId = sum % listOfAvatarColor.length
     return listOfAvatarColor[colorId]
@@ -98,5 +100,4 @@ export class AppComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe()
   }
-
 }

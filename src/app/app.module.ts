@@ -39,13 +39,7 @@ import { environment } from '../environments/environment'
 registerLocaleData(th)
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    UtilitiesComponent,
-    FoodsComponent,
-    InventoriesComponent
-  ],
+  declarations: [AppComponent, DashboardComponent, UtilitiesComponent, FoodsComponent, InventoriesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -74,8 +68,8 @@ registerLocaleData(th)
     { provide: WEB_SERVICE_CONFIG, useValue: environment },
     { provide: AUTHENTICATION_CONFIG, useValue: environment },
     { provide: NZ_I18N, useValue: th_TH },
-    { provide: NZ_DATE_LOCALE, useValue: th }
+    { provide: NZ_DATE_LOCALE, useValue: th },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

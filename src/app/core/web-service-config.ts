@@ -1,5 +1,4 @@
 export interface WebServiceConfig {
-
-    /** Url ของ Web Service */
-    webServiceUrl?: string
+  /** Url ของ Web Service */
+  webServiceUrl?: string
 }

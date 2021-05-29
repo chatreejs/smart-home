@@ -5,7 +5,7 @@ import { Inventory } from '../../core/model/inventory'
 @Component({
   selector: 'app-inventories',
   templateUrl: './inventories.component.html',
-  styleUrls: ['./inventories.component.scss']
+  styleUrls: ['./inventories.component.scss'],
 })
 export class InventoriesComponent implements OnInit {
   deleteConfirmTitle: string
@@ -17,7 +17,7 @@ export class InventoriesComponent implements OnInit {
   setOfCheckedId: Set<number> = new Set<number>()
 
   public constructor(private nzMessageService: NzMessageService) {
-    this.deleteConfirmTitle = ""
+    this.deleteConfirmTitle = ''
     this.checked = false
     this.indeterminate = false
   }
@@ -26,25 +26,25 @@ export class InventoriesComponent implements OnInit {
     this.listOfInventoryData = [
       {
         id: 1,
-        name: "น้ำยาซักผ้า",
+        name: 'น้ำยาซักผ้า',
         quantity: 1,
         maxQuantity: 2,
-        unit: "ถุง"
+        unit: 'ถุง',
       },
       {
         id: 2,
-        name: "ยาสีฟัน",
+        name: 'ยาสีฟัน',
         quantity: 1,
         maxQuantity: 2,
-        unit: "หลอด"
+        unit: 'หลอด',
       },
       {
         id: 2,
-        name: "น้ำยาล้างจาน",
+        name: 'น้ำยาล้างจาน',
         quantity: 0,
         maxQuantity: 2,
-        unit: "หลอด"
-      }
+        unit: 'หลอด',
+      },
     ]
   }
 
@@ -63,7 +63,7 @@ export class InventoriesComponent implements OnInit {
   }
 
   public onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value))
+    this.listOfCurrentPageData.forEach((item) => this.updateCheckedSet(item.id, value))
     this.refreshCheckedStatus()
   }
 
@@ -73,12 +73,11 @@ export class InventoriesComponent implements OnInit {
   }
 
   public refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id))
-    this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked
+    this.checked = this.listOfCurrentPageData.every((item) => this.setOfCheckedId.has(item.id))
+    this.indeterminate = this.listOfCurrentPageData.some((item) => this.setOfCheckedId.has(item.id)) && !this.checked
   }
 
   public onConfirmDelete(): void {
-    this.nzMessageService.success("ลบรายการของใช้ในบ้านเรียบร้อยแล้ว")
+    this.nzMessageService.success('ลบรายการของใช้ในบ้านเรียบร้อยแล้ว')
   }
-
 }

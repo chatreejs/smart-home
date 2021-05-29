@@ -1,11 +1,7 @@
 <nz-layout class="layout">
   <nz-header>
     <div class="header-trigger" (click)="isCollapsed = !isCollapsed">
-      <i
-        nz-icon
-        [nzType]="isCollapsed ? 'menu' : 'menu-fold'"
-        nzTheme="outline"
-      ></i>
+      <i nz-icon [nzType]="isCollapsed ? 'menu' : 'menu-fold'" nzTheme="outline"></i>
     </div>
     <div *ngIf="innerWidth >= 992" class="logo"></div>
     <div *ngIf="innerWidth < 992" class="logo-sm"></div>
@@ -48,8 +44,7 @@
     >
       <ul nz-menu nzTheme="light" nzMode="inline">
         <li nz-menu-item nzMatchRouter [routerLink]="['/', 'dashboard']">
-          <i nz-icon nzType="dashboard" nzTheme="outline"></i
-          ><span>แผงควบคุม</span>
+          <i nz-icon nzType="dashboard" nzTheme="outline"></i><span>แผงควบคุม</span>
         </li>
         <li nz-menu-item nzMatchRouter [routerLink]="['/', 'utilities']">
           <i nz-icon nzType="thunderbolt" nzTheme="outline"></i>
@@ -59,8 +54,7 @@
           <i nz-icon nzType="coffee" nzTheme="outline"></i><span>อาหาร</span>
         </li>
         <li nz-menu-item nzMatchRouter [routerLink]="['/', 'inventories']">
-          <i nz-icon nzType="barcode" nzTheme="outline"></i
-          ><span>ของใช้ในบ้าน</span>
+          <i nz-icon nzType="barcode" nzTheme="outline"></i><span>ของใช้ในบ้าน</span>
         </li>
       </ul>
     </nz-sider>

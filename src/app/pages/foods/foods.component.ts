@@ -6,7 +6,7 @@ import { Food } from '../../core/model/food'
 @Component({
   selector: 'app-foods',
   templateUrl: './foods.component.html',
-  styleUrls: ['./foods.component.scss']
+  styleUrls: ['./foods.component.scss'],
 })
 export class FoodsComponent implements OnInit {
   today: Date
@@ -18,14 +18,12 @@ export class FoodsComponent implements OnInit {
   listOfCurrentPageData: ReadonlyArray<Food> = []
   setOfCheckedId: Set<number> = new Set<number>()
 
-  public constructor(
-    private foodService: FoodsService,
-    private nzMessageService: NzMessageService) {
+  public constructor(private foodService: FoodsService, private nzMessageService: NzMessageService) {
     this.today = new Date()
     this.today.setHours(23, 59, 59, 999)
     this.checked = false
     this.indeterminate = false
-    this.deleteConfirmTitle = ""
+    this.deleteConfirmTitle = ''
   }
 
   public ngOnInit(): void {
@@ -38,23 +36,23 @@ export class FoodsComponent implements OnInit {
         id: 1,
         name: 'ปลากระป๋อง ปลากระป๋อง โรซ่า',
         quantity: 2,
-        buyDate: new Date("2021-04-01"),
-        expireDate: new Date("2021-05-27")
+        buyDate: new Date('2021-04-01'),
+        expireDate: new Date('2021-05-27'),
       },
       {
         id: 2,
         name: 'ปาท่องโก๋',
         quantity: 2,
-        buyDate: new Date("2021-04-01"),
-        expireDate: new Date("2021-05-28")
+        buyDate: new Date('2021-04-01'),
+        expireDate: new Date('2021-05-28'),
       },
       {
         id: 3,
         name: 'ปาปีก้า',
         quantity: 2,
-        buyDate: new Date("2021-04-01"),
-        expireDate: new Date("2021-07-29")
-      }
+        buyDate: new Date('2021-04-01'),
+        expireDate: new Date('2021-07-29'),
+      },
     ]
   }
 
@@ -73,7 +71,7 @@ export class FoodsComponent implements OnInit {
   }
 
   public onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value))
+    this.listOfCurrentPageData.forEach((item) => this.updateCheckedSet(item.id, value))
     this.refreshCheckedStatus()
   }
 
@@ -83,12 +81,11 @@ export class FoodsComponent implements OnInit {
   }
 
   public refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every(item => this.setOfCheckedId.has(item.id))
-    this.indeterminate = this.listOfCurrentPageData.some(item => this.setOfCheckedId.has(item.id)) && !this.checked
+    this.checked = this.listOfCurrentPageData.every((item) => this.setOfCheckedId.has(item.id))
+    this.indeterminate = this.listOfCurrentPageData.some((item) => this.setOfCheckedId.has(item.id)) && !this.checked
   }
 
   public onConfirmDelete(): void {
-    this.nzMessageService.success("ลบรายการอาหารเรียบร้อยแล้ว")
+    this.nzMessageService.success('ลบรายการอาหารเรียบร้อยแล้ว')
   }
-
 }

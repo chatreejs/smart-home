@@ -1,0 +1,38 @@
+<nz-layout class="layout">
+  <nz-header>
+    <div class="logo"></div>
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="['/', 'dashboard']">
+          <i nz-icon nzType="dashboard" nzTheme="outline"></i>แผงควบคุม
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="['/', 'utilities']">
+          <i nz-icon nzType="thunderbolt" nzTheme="outline"></i>สาธารณูปโภค
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="['/', 'foods']">
+          <i nz-icon nzType="coffee" nzTheme="outline"></i>อาหาร
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="['/', 'inventories']">
+          <i nz-icon nzType="barcode" nzTheme="outline"></i>ของใช้ในบ้าน
+        </a>
+      </li>
+    </ul>
+  </nz-header>
+  <nz-content>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>หน้าแรก</nz-breadcrumb-item>
+      <nz-breadcrumb-item>รายการ</nz-breadcrumb-item>
+      <nz-breadcrumb-item>App</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+  <nz-footer>chatreejs ©2021</nz-footer>
+</nz-layout>

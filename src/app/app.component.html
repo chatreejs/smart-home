@@ -1,38 +1,80 @@
 <nz-layout class="layout">
   <nz-header>
-    <div class="logo"></div>
-    <ul nz-menu nzTheme="dark" nzMode="horizontal">
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="['/', 'dashboard']">
-          <i nz-icon nzType="dashboard" nzTheme="outline"></i>แผงควบคุม
-        </a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="['/', 'utilities']">
-          <i nz-icon nzType="thunderbolt" nzTheme="outline"></i>สาธารณูปโภค
-        </a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="['/', 'foods']">
-          <i nz-icon nzType="coffee" nzTheme="outline"></i>อาหาร
-        </a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="['/', 'inventories']">
-          <i nz-icon nzType="barcode" nzTheme="outline"></i>ของใช้ในบ้าน
-        </a>
-      </li>
-    </ul>
-  </nz-header>
-  <nz-content>
-    <nz-breadcrumb>
-      <nz-breadcrumb-item>หน้าแรก</nz-breadcrumb-item>
-      <nz-breadcrumb-item>รายการ</nz-breadcrumb-item>
-      <nz-breadcrumb-item>App</nz-breadcrumb-item>
-    </nz-breadcrumb>
-    <div class="inner-content">
-      <router-outlet></router-outlet>
+    <div class="header-trigger" (click)="isCollapsed = !isCollapsed">
+      <i
+        nz-icon
+        [nzType]="isCollapsed ? 'menu' : 'menu-fold'"
+        nzTheme="outline"
+      ></i>
     </div>
-  </nz-content>
-  <nz-footer>chatreejs ©2021</nz-footer>
+    <div *ngIf="innerWidth >= 992" class="logo"></div>
+    <div *ngIf="innerWidth < 992" class="logo-sm"></div>
+    <div class="header-current-user-group">
+      <div class="header-current-user-group__item">
+        <button
+          class="header-current-user-group__item-button"
+          nz-button
+          nzType="default"
+          nzShape="round"
+          nz-dropdown
+          nzTrigger="click"
+          [nzDropdownMenu]="currentUserDropdown"
+        >
+          <nz-avatar
+            [nzText]="avatarName"
+            [ngStyle]="{ 'background-color': avatarColor }"
+            nzSize="large"
+            style="vertical-align: middle; margin-right: 8px"
+          >
+          </nz-avatar>
+          <span *ngIf="user">{{ user.firstName }} {{ user.lastName }}</span>
+          <nz-dropdown-menu #currentUserDropdown="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>Log Out</li>
+            </ul>
+          </nz-dropdown-menu>
+        </button>
+      </div>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider
+      class="sider-menu"
+      nzCollapsible
+      [(nzCollapsed)]="isCollapsed"
+      [nzTrigger]="null"
+      nzBreakpoint="md"
+      [nzCollapsedWidth]="innerWidth >= 992 ? 80 : 0"
+    >
+      <ul nz-menu nzTheme="light" nzMode="inline">
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'dashboard']">
+          <i nz-icon nzType="dashboard" nzTheme="outline"></i
+          ><span>แผงควบคุม</span>
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'utilities']">
+          <i nz-icon nzType="thunderbolt" nzTheme="outline"></i>
+          <span>สาธารณูปโภค</span>
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'foods']">
+          <i nz-icon nzType="coffee" nzTheme="outline"></i><span>อาหาร</span>
+        </li>
+        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'inventories']">
+          <i nz-icon nzType="barcode" nzTheme="outline"></i
+          ><span>ของใช้ในบ้าน</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-content>
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>หน้าแรก</nz-breadcrumb-item>
+          <nz-breadcrumb-item>รายการ</nz-breadcrumb-item>
+          <nz-breadcrumb-item>App</nz-breadcrumb-item>
+        </nz-breadcrumb>
+        <div class="inner-content">
+          <router-outlet></router-outlet>
+        </div>
+      </nz-content>
+    </nz-layout>
+  </nz-layout>
 </nz-layout>

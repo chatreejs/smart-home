@@ -1,31 +1,83 @@
+$height: 64px;
+
+:host {
+  display: flex;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 .layout {
   min-height: 100vh;
+  max-width: 100vw;
+}
+
+.header-trigger {
+  height: $height;
+  padding: 0 8px;
+  margin-right: 24px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s, padding 0s;
+  float: left;
+}
+
+.header-trigger:hover {
+  color: rgb(31, 199, 212);
 }
 
 .logo {
   width: 120px;
   height: 31px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgb(255, 0, 0);
   margin: 16px 24px 16px 0;
-  float: left;
+  display: inline-block;
 }
 
-[nz-menu] {
-  line-height: 64px;
+.logo-sm {
+  width: 31px;
+  height: 31px;
+  background: rgb(255, 0, 0);
+  margin: 16px 24px 16px 0;
+  display: inline-block;
+}
+
+.header-current-user-group {
+  display: flex;
+  float: right;
+  height: $height;
+  margin-left: auto;
+  overflow: hidden;
+}
+
+.header-current-user-group__item {
+  padding: 0 8px;
+}
+
+.header-current-user-group__item-button {
+  height: $height - 12px;
+}
+
+.ant-avatar {
+  font-size: 1.2rem;
+}
+
+.sider-menu {
+  border-right: 0;
 }
 
 nz-header {
-  position: fixed;
-  width: 100%;
+  background: #fff;
+  padding-left: 8px;
+  padding-right: 16px;
 }
 
-[nz-menu] {
-  line-height: 64px;
+nz-sider {
+  background: #fff;
 }
 
 nz-content {
-  padding: 0 50px;
-  margin-top: 64px;
+  margin: 0 16px;
 }
 
 nz-breadcrumb {
@@ -35,9 +87,5 @@ nz-breadcrumb {
 .inner-content {
   background: #fff;
   padding: 24px;
-  min-height: 380px;
-}
-
-nz-footer {
-  text-align: center;
+  min-height: 360px;
 }

@@ -1,4 +1,4 @@
-<h1 nz-typography>รายการของใช้ในบ้าน</h1>
+<h2 nz-typography>รายการของใช้ในบ้าน</h2>
 <div class="action-bar" nz-row [nzGutter]="8">
   <div nz-col>
     <button nz-button nzType="primary">
@@ -13,7 +13,7 @@
       nzPopconfirmPlacement="right"
       (nzOnConfirm)="onConfirmDelete()"
       nz-button
-      nzType="danger"
+      nzDanger
       [disabled]="!(setOfCheckedId.size > 0)"
     >
       <i nz-icon nzType="delete" nzTheme="outline"></i>
@@ -26,9 +26,7 @@
     <nz-input-group [nzPrefix]="prefixTemplateSearchBar">
       <input type="text" nz-input placeholder="ค้นหา..." />
     </nz-input-group>
-    <ng-template #prefixTemplateSearchBar
-      ><i nz-icon nzType="search" nzTheme="outline"></i
-    ></ng-template>
+    <ng-template #prefixTemplateSearchBar><i nz-icon nzType="search" nzTheme="outline"></i></ng-template>
   </div>
 </div>
 <nz-table
@@ -54,10 +52,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of foodTable.data">
-      <td
-        [nzChecked]="setOfCheckedId.has(data.id)"
-        (nzCheckedChange)="onItemChecked(data.id, $event)"
-      ></td>
+      <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
       <td>
         <a [routerLink]="['/', 'foods', data.id]">{{ data.name }}</a>
       </td>

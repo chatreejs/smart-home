@@ -43,27 +43,62 @@
       [nzCollapsedWidth]="innerWidth >= 992 ? 80 : 0"
     >
       <ul nz-menu nzTheme="light" nzMode="inline">
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'dashboard']">
-          <i nz-icon nzType="dashboard" nzTheme="outline"></i><span>แผงควบคุม</span>
+        <li nz-menu-item nzMatchRouter [routerLink]="['dashboard']">
+          <i class="fas fa-tachometer-alt fa-lg"></i><span>แผงควบคุม</span>
         </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'utilities']">
-          <i nz-icon nzType="thunderbolt" nzTheme="outline"></i>
+        <li nz-submenu nzOpen [nzTitle]="utilitySubmenuTemplate">
+          <ul>
+            <li nz-menu-item nzMatchRouter [routerLink]="['utilities', 'electricity']">
+              <i class="fas fa-plug fa-lg"></i><span>ไฟฟ้า</span>
+            </li>
+            <li nz-menu-item nzMatchRouter [routerLink]="['utilities', 'waterworks']">
+              <i class="fas fa-faucet fa-lg"></i><span>ประปา</span>
+            </li>
+          </ul>
+        </li>
+        <ng-template #utilitySubmenuTemplate>
+          <i class="fas fa-file-invoice-dollar fa-lg"></i>
           <span>สาธารณูปโภค</span>
+        </ng-template>
+        <li nz-menu-item nzMatchRouter [routerLink]="['foods']">
+          <i class="fas fa-drumstick-bite fa-lg"></i><span>อาหาร</span>
         </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'foods']">
-          <i nz-icon nzType="coffee" nzTheme="outline"></i><span>อาหาร</span>
+        <li nz-menu-item nzMatchRouter [routerLink]="['inventories']">
+          <i class="fas fa-pump-soap fa-lg"></i><span>ของใช้ในบ้าน</span>
         </li>
-        <li nz-menu-item nzMatchRouter [routerLink]="['/', 'inventories']">
-          <i nz-icon nzType="barcode" nzTheme="outline"></i><span>ของใช้ในบ้าน</span>
+        <li nz-submenu [nzTitle]="portalSubmenuTemplate">
+          <ul>
+            <li nz-menu-item>
+              <a href="http://192.168.1.1" target="_blank">
+                <i class="fas fa-network-wired fa-lg"></i><span>Gateway</span></a
+              >
+            </li>
+            <li nz-menu-item>
+              <a href="http://192.168.1.1" target="_blank">
+                <i class="fas fa-wifi fa-lg"></i><span>Access Point</span></a
+              >
+            </li>
+            <li nz-menu-item>
+              <a href="http://192.168.1.105:8581" target="_blank">
+                <i class="fab fa-apple fa-lg"></i><span>Homebridge</span></a
+              >
+            </li>
+          </ul>
         </li>
+        <ng-template #portalSubmenuTemplate><i class="fas fa-ellipsis-h fa-lg"></i><span>Portal</span></ng-template>
       </ul>
     </nz-sider>
     <nz-layout>
       <nz-content>
         <nz-breadcrumb>
-          <nz-breadcrumb-item>หน้าแรก</nz-breadcrumb-item>
-          <nz-breadcrumb-item>รายการ</nz-breadcrumb-item>
-          <nz-breadcrumb-item>App</nz-breadcrumb-item>
+          <nz-breadcrumb-item *ngFor="let breadcrumb of breadcrumbs; let i = index">
+            <ng-container *ngIf="i === breadcrumbs.length - 1; else linkBreadcrumb">{{
+              breadcrumb.label
+            }}</ng-container>
+            <ng-template #linkBreadcrumb>
+              <a [routerLink]="breadcrumb.path">{{ breadcrumb.label }}</a>
+            </ng-template>
+          </nz-breadcrumb-item>
         </nz-breadcrumb>
         <div class="inner-content">
           <router-outlet></router-outlet>

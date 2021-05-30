@@ -30,8 +30,6 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { UtilitiesComponent } from './pages/utilities/utilities.component'
-import { FoodsComponent } from './pages/foods/foods.component'
-import { InventoriesComponent } from './pages/inventories/inventories.component'
 
 import { AUTHENTICATION_CONFIG, GENERAL_ENVIRONMENT_CONFIG, WEB_SERVICE_CONFIG } from './core/provider-name-token'
 import { environment } from '../environments/environment'
@@ -39,7 +37,7 @@ import { environment } from '../environments/environment'
 registerLocaleData(th)
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, UtilitiesComponent, FoodsComponent, InventoriesComponent],
+  declarations: [AppComponent, DashboardComponent, UtilitiesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

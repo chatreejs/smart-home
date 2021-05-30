@@ -1,0 +1,65 @@
+<h2 nz-typography>รายการของใช้ในบ้าน</h2>
+<div class="action-bar" nz-row [nzGutter]="8">
+  <div nz-col>
+    <button nz-button nzType="primary" [routerLink]="['new']">
+      <i nz-icon nzType="plus" nzTheme="outline"></i>
+      เพิ่มของใช้
+    </button>
+  </div>
+  <div nz-col>
+    <button
+      nz-popconfirm
+      [nzPopconfirmTitle]="deleteConfirmTitle"
+      nzPopconfirmPlacement="right"
+      (nzOnConfirm)="onConfirmDelete()"
+      nz-button
+      nzDanger
+      [disabled]="!(setOfCheckedId.size > 0)"
+    >
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+      ลบ
+    </button>
+  </div>
+</div>
+<div class="search-bar" nz-row>
+  <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+    <nz-input-group [nzPrefix]="prefixTemplateSearchBar">
+      <input type="text" nz-input placeholder="ค้นหา..." />
+    </nz-input-group>
+    <ng-template #prefixTemplateSearchBar><i nz-icon nzType="search" nzTheme="outline"></i></ng-template>
+  </div>
+</div>
+<nz-table
+  #foodTable
+  nzShowPagination
+  nzShowSizeChanger
+  nzSize="small"
+  [nzData]="listOfInventoryData"
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+>
+  <thead>
+    <tr>
+      <th
+        [nzWidth]="'1%'"
+        [nzChecked]="checked"
+        [nzIndeterminate]="indeterminate"
+        (nzCheckedChange)="onAllChecked($event)"
+      ></th>
+      <th [nzWidth]="'20%'">ชื่อ</th>
+      <th>สถานะ</th>
+      <th>จำนวน</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of foodTable.data">
+      <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+      <td>
+        <a [routerLink]="[data.id]">{{ data.name }}</a>
+      </td>
+      <td>
+        <nz-tag *ngIf="data.quantity == 0" [nzColor]="'#f50'"> หมด </nz-tag>
+      </td>
+      <td>{{ data.quantity }} / {{ data.maxQuantity }}</td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -29,7 +29,7 @@ $height: 64px;
 .logo {
   width: 120px;
   height: 31px;
-  background: rgb(255, 0, 0);
+  background: rgb(210, 210, 210);
   margin: 16px 24px 16px 0;
   display: inline-block;
 }
@@ -37,7 +37,7 @@ $height: 64px;
 .logo-sm {
   width: 31px;
   height: 31px;
-  background: rgb(255, 0, 0);
+  background: rgb(210, 210, 210);
   margin: 16px 24px 16px 0;
   display: inline-block;
 }
@@ -74,6 +74,9 @@ nz-header {
 
 nz-sider {
   background: #fff;
+  span {
+    font-size: medium;
+  }
 }
 
 nz-content {

@@ -8,7 +8,6 @@ import { Inventory } from 'src/app/core/model/inventory'
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  public deleteConfirmTitle: string
   public checked: boolean
   public indeterminate: boolean
 
@@ -17,7 +16,6 @@ export class TableComponent implements OnInit {
   public setOfCheckedId: Set<number> = new Set<number>()
 
   public constructor(private nzMessageService: NzMessageService) {
-    this.deleteConfirmTitle = ''
     this.checked = false
     this.indeterminate = false
   }
@@ -54,7 +52,6 @@ export class TableComponent implements OnInit {
     } else {
       this.setOfCheckedId.delete(id)
     }
-    this.deleteConfirmTitle = `คุณต้องการลบรายการของใช้ในบ้านจำนวน ${this.setOfCheckedId.size} รายการใช่ไหม?`
   }
 
   public onItemChecked(id: number, checked: boolean): void {

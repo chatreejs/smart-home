@@ -9,7 +9,7 @@
   <div nz-col>
     <button
       nz-popconfirm
-      [nzPopconfirmTitle]="deleteConfirmTitle"
+      [nzPopconfirmTitle]="'คุณต้องการลบรายการอาหารจำนวน ' + this.setOfCheckedId.size + ' รายการใช่ไหม?'"
       nzPopconfirmPlacement="right"
       (nzOnConfirm)="onConfirmDelete()"
       nz-button

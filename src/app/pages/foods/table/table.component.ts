@@ -10,7 +10,6 @@ import { FoodsService } from 'src/app/core/services/foods.service'
 })
 export class TableComponent implements OnInit {
   public today: Date
-  public deleteConfirmTitle: string
   public checked: boolean
   public indeterminate: boolean
 
@@ -23,7 +22,6 @@ export class TableComponent implements OnInit {
     this.today.setHours(23, 59, 59, 999)
     this.checked = false
     this.indeterminate = false
-    this.deleteConfirmTitle = ''
   }
 
   public ngOnInit(): void {
@@ -62,7 +60,6 @@ export class TableComponent implements OnInit {
     } else {
       this.setOfCheckedId.delete(id)
     }
-    this.deleteConfirmTitle = `คุณต้องการลบรายการอาหารจำนวน ${this.setOfCheckedId.size} รายการใช่ไหม?`
   }
 
   public onItemChecked(id: number, checked: boolean): void {

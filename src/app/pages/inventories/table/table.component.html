@@ -9,7 +9,7 @@
   <div nz-col>
     <button
       nz-popconfirm
-      [nzPopconfirmTitle]="deleteConfirmTitle"
+      [nzPopconfirmTitle]="'คุณต้องการลบรายการของใช้ในบ้านจำนวน ' + this.setOfCheckedId.size + ' รายการใช่ไหม?'"
       nzPopconfirmPlacement="right"
       (nzOnConfirm)="onConfirmDelete()"
       nz-button
@@ -30,7 +30,7 @@
   </div>
 </div>
 <nz-table
-  #foodTable
+  #inventoryTable
   nzShowPagination
   nzShowSizeChanger
   nzSize="small"
@@ -51,7 +51,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of foodTable.data">
+    <tr *ngFor="let data of inventoryTable.data">
       <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
       <td>
         <a [routerLink]="[data.id]">{{ data.name }}</a>

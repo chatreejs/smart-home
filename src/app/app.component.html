@@ -26,7 +26,7 @@
           <span *ngIf="user">{{ user.firstName }} {{ user.lastName }}</span>
           <nz-dropdown-menu #currentUserDropdown="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item>Log Out</li>
+              <li nz-menu-item><i nz-icon nzType="logout" nzTheme="outline"></i>Log Out</li>
             </ul>
           </nz-dropdown-menu>
         </button>
@@ -86,6 +86,15 @@
           </ul>
         </li>
         <ng-template #portalSubmenuTemplate><i class="fas fa-ellipsis-h fa-lg"></i><span>Portal</span></ng-template>
+        <li nz-submenu [nzTitle]="experimentalSubmenuTemplate">
+          <ul>
+            <li nz-menu-item><i class="fas fa-cube fa-lg"></i><span>Web3.js</span></li>
+            <li nz-menu-item><i class="fas fa-cubes fa-lg"></i><span>Container</span></li>
+          </ul>
+        </li>
+        <ng-template #experimentalSubmenuTemplate>
+          <i class="fas fa-flask fa-lg"></i><span>Experimental</span>
+        </ng-template>
       </ul>
     </nz-sider>
     <nz-layout

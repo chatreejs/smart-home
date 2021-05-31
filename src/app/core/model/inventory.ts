@@ -4,4 +4,10 @@ export interface Inventory {
   quantity: number
   maxQuantity: number
   unit: string
+  status: InventoryStatus
+}
+
+export enum InventoryStatus {
+  Active = 0,
+  OutOfStock,
 }

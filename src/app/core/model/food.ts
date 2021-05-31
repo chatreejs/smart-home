@@ -4,4 +4,10 @@ export interface Food {
   quantity: number
   buyDate: Date
   expireDate: Date
+  status: FoodStatus
+}
+
+export enum FoodStatus {
+  Active = 0,
+  Expired,
 }

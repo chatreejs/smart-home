@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { LOCALE_ID, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -29,7 +29,6 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 
 import { AppComponent } from './app.component'
 import { DashboardComponent } from './pages/dashboard/dashboard.component'
-import { UtilitiesComponent } from './pages/utilities/utilities.component'
 
 import { AUTHENTICATION_CONFIG, GENERAL_ENVIRONMENT_CONFIG, WEB_SERVICE_CONFIG } from './core/provider-name-token'
 import { environment } from '../environments/environment'
@@ -37,7 +36,7 @@ import { environment } from '../environments/environment'
 registerLocaleData(th)
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, UtilitiesComponent],
+  declarations: [AppComponent, DashboardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -67,6 +66,7 @@ registerLocaleData(th)
     { provide: AUTHENTICATION_CONFIG, useValue: environment },
     { provide: NZ_I18N, useValue: th_TH },
     { provide: NZ_DATE_LOCALE, useValue: th },
+    { provide: LOCALE_ID, useValue: 'th_TH' },
   ],
   bootstrap: [AppComponent],
 })

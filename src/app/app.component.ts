@@ -91,8 +91,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
     // fake
     this.user = {
-      firstName: 'Admin',
-      lastName: 'A',
+      firstName: 'ชื่อ',
+      lastName: 'นามสกุล',
     }
     this.avatarName = this.calculateAvatarName(this.user.firstName, this.user.lastName)
     this.avatarColor = this.calculateAvatarColor(this.user.firstName)

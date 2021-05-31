@@ -1,0 +1,105 @@
+<nz-card>
+  <h2 nz-typography>ภาพรวมการใช้งาน</h2>
+  <nz-row class="statistic-container" [nzGutter]="[16, 24]">
+    <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="6" nzXl="6">
+      <nz-statistic [nzValue]="(overdue | number: '1.0-2')!" [nzTitle]="'ค่าน้ำค้างชำระ (บาท)'"></nz-statistic>
+    </nz-col>
+    <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="6" nzXl="6">
+      <nz-statistic
+        [nzValue]="(difference | number: '1.0-2')!"
+        [nzTitle]="'ส่วนต่างระหว่างเดือน (บาท)'"
+        [nzPrefix]="prefixDifference"
+        [nzValueStyle]="difference === 0 ? {} : difference > 0 ? { color: '#3F8600' } : { color: '#CF1322' }"
+      >
+      </nz-statistic>
+      <ng-template #prefixDifference>
+        <i nz-icon [nzType]="difference === 0 ? '' : difference > 0 ? 'arrow-up' : 'arrow-down'"></i>
+      </ng-template>
+    </nz-col>
+  </nz-row>
+  <nz-row class="chart-container">
+    <nz-col [nzSpan]="24">
+      <chart
+        class="chart-container__chart"
+        [type]="typeChart"
+        [data]="dataChart"
+        [options]="optionsChart"
+        #chartCanvas
+      ></chart>
+    </nz-col>
+  </nz-row>
+</nz-card>
+<nz-card>
+  <h3 nz-typography>รายละเอียดการใช้น้ำประปา</h3>
+  <nz-row class="action-bar" [nzGutter]="8">
+    <nz-col>
+      <button nz-button nzType="primary" [routerLink]="['new']">
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+        เพิ่มรายการ
+      </button>
+    </nz-col>
+    <nz-col>
+      <button
+        nz-popconfirm
+        [nzPopconfirmTitle]="'คุณต้องการลบรายการน้ำประปาจำนวน ' + setOfCheckedId.size + ' รายการใช่ไหม?'"
+        nzPopconfirmPlacement="right"
+        (nzOnConfirm)="onConfirmDelete()"
+        nz-button
+        nzDanger
+        [disabled]="!(setOfCheckedId.size > 0)"
+      >
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
+        ลบ
+      </button>
+    </nz-col>
+  </nz-row>
+  <nz-table
+    #waterworksTable
+    nzShowPagination
+    nzShowSizeChanger
+    nzSize="small"
+    [nzData]="listOfWaterworksData"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+  >
+    <thead>
+      <tr>
+        <th
+          [nzWidth]="'1%'"
+          [nzChecked]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+        <th>เลขที่ใบแจ้งค่าน้ำ</th>
+        <th>วันที่แจ้งค่าน้ำ</th>
+        <th>วันครบชำระ</th>
+        <th>หน่วยที่ใช้ (ลบ.ม.)</th>
+        <th>ค่าน้ำประปา (บาท)</th>
+        <th>ส่วนลด (บาท)</th>
+        <th>ค่าบริการ (บาท)</th>
+        <th>VAT (บาท)</th>
+        <th>รวม (บาท)</th>
+        <th>สถานะ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of waterworksTable.data">
+        <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+        <td>
+          <a [routerLink]="[data.id]">{{ data.invoiceNumber }}</a>
+        </td>
+        <td>{{ data.issueDate | date }}</td>
+        <td>{{ data.dueDate | date }}</td>
+        <td>{{ data.waterUse / 1000 | number }}</td>
+        <td>{{ data.waterPrice | number: '1.2' }}</td>
+        <td>{{ data.discount | number: '1.2' }}</td>
+        <td>{{ data.serviceCharge | number: '1.2' }}</td>
+        <td>{{ data.vat | number: '1.2' }}</td>
+        <td>{{ data.total | number: '1.2' }}</td>
+        <td>
+          <nz-tag *ngIf="data.status === waterworksStatus.NotPaid" [nzColor]="'#f50'">ยังไม่ชำระ</nz-tag>
+          <nz-tag *ngIf="data.status === waterworksStatus.Paid" [nzColor]="'#87d068'">ชำระแล้ว</nz-tag>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

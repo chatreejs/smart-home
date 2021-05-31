@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core'
 import { Routes, RouterModule } from '@angular/router'
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component'
-import { InventoriesComponent } from './pages/inventories/inventories.component'
-import { UtilitiesComponent } from './pages/utilities/utilities.component'
 
 const routes: Routes = [
   {
@@ -18,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'utilities',
-    component: UtilitiesComponent,
+    loadChildren: () => import('./pages/utilities/utilities.module').then((m) => m.UtilitiesModule),
     data: { title: 'สาธารณูปโภค', breadcrumb: 'สาธารณูปโภค' },
   },
   {

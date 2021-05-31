@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { FoodsRoutingModule } from './foods-routing.module'
+import { IconsProviderModule } from 'src/app/icons-provider.module'
 
 import { FoodsComponent } from './foods.component'
 import { TableComponent } from './table/table.component'
@@ -14,11 +15,15 @@ import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm'
 import { NzTagModule } from 'ng-zorro-antd/tag'
 import { NzTableModule } from 'ng-zorro-antd/table'
 import { NzInputModule } from 'ng-zorro-antd/input'
+import { NzCardModule } from 'ng-zorro-antd/card'
 
 @NgModule({
   declarations: [FoodsComponent, TableComponent, FoodsDetailComponent],
   imports: [
     CommonModule,
+    FoodsRoutingModule,
+
+    IconsProviderModule,
 
     NzGridModule,
     NzTableModule,
@@ -27,8 +32,7 @@ import { NzInputModule } from 'ng-zorro-antd/input'
     NzPopconfirmModule,
     NzInputModule,
     NzTagModule,
-
-    FoodsRoutingModule,
+    NzCardModule,
   ],
 })
 export class FoodsModule {}

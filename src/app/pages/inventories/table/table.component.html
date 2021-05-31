@@ -1,65 +1,73 @@
-<h2 nz-typography>รายการของใช้ในบ้าน</h2>
-<nz-row class="action-bar" [nzGutter]="8">
-  <nz-col>
-    <button nz-button nzType="primary" [routerLink]="['new']">
-      <i nz-icon nzType="plus" nzTheme="outline"></i>
-      เพิ่มของใช้
-    </button>
-  </nz-col>
-  <nz-col>
-    <button
-      nz-popconfirm
-      [nzPopconfirmTitle]="'คุณต้องการลบรายการของใช้ในบ้านจำนวน ' + this.setOfCheckedId.size + ' รายการใช่ไหม?'"
-      nzPopconfirmPlacement="right"
-      (nzOnConfirm)="onConfirmDelete()"
-      nz-button
-      nzDanger
-      [disabled]="!(setOfCheckedId.size > 0)"
-    >
-      <i nz-icon nzType="delete" nzTheme="outline"></i>
-      ลบ
-    </button>
-  </nz-col>
-</nz-row>
-<nz-row class="search-bar">
-  <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
-    <nz-input-group [nzPrefix]="prefixTemplateSearchBar">
-      <input type="text" nz-input placeholder="ค้นหา..." />
-    </nz-input-group>
-    <ng-template #prefixTemplateSearchBar><i nz-icon nzType="search" nzTheme="outline"></i></ng-template>
-  </nz-col>
-</nz-row>
-<nz-table
-  #inventoryTable
-  nzShowPagination
-  nzShowSizeChanger
-  nzSize="small"
-  [nzData]="listOfInventoryData"
-  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
->
-  <thead>
-    <tr>
-      <th
-        [nzWidth]="'1%'"
-        [nzChecked]="checked"
-        [nzIndeterminate]="indeterminate"
-        (nzCheckedChange)="onAllChecked($event)"
-      ></th>
-      <th [nzWidth]="'20%'">ชื่อ</th>
-      <th>สถานะ</th>
-      <th>จำนวน</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let data of inventoryTable.data">
-      <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-      <td>
-        <a [routerLink]="[data.id]">{{ data.name }}</a>
-      </td>
-      <td>
-        <nz-tag *ngIf="data.quantity == 0" [nzColor]="'#f50'"> หมด </nz-tag>
-      </td>
-      <td>{{ data.quantity }} / {{ data.maxQuantity }}</td>
-    </tr>
-  </tbody>
-</nz-table>
+<nz-card>
+  <h2 nz-typography>รายการของใช้ในบ้าน</h2>
+  <nz-row class="action-bar" [nzGutter]="8">
+    <nz-col>
+      <button nz-button nzType="primary" [routerLink]="['new']">
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+        เพิ่มของใช้
+      </button>
+    </nz-col>
+    <nz-col>
+      <button nz-button nzType="default">
+        <i nz-icon nzType="printer" nzTheme="outline"></i>
+        พิมพ์รายการซื้อ
+      </button>
+    </nz-col>
+    <nz-col>
+      <button
+        nz-popconfirm
+        [nzPopconfirmTitle]="'คุณต้องการลบรายการของใช้ในบ้านจำนวน ' + this.setOfCheckedId.size + ' รายการใช่ไหม?'"
+        nzPopconfirmPlacement="right"
+        (nzOnConfirm)="onConfirmDelete()"
+        nz-button
+        nzDanger
+        [disabled]="!(setOfCheckedId.size > 0)"
+      >
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
+        ลบ
+      </button>
+    </nz-col>
+  </nz-row>
+  <nz-row class="search-bar">
+    <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
+      <nz-input-group [nzPrefix]="prefixTemplateSearchBar">
+        <input type="text" nz-input placeholder="ค้นหา..." />
+      </nz-input-group>
+      <ng-template #prefixTemplateSearchBar><i nz-icon nzType="search" nzTheme="outline"></i></ng-template>
+    </nz-col>
+  </nz-row>
+  <nz-table
+    #inventoryTable
+    nzShowPagination
+    nzShowSizeChanger
+    nzSize="small"
+    [nzData]="listOfInventoryData"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+  >
+    <thead>
+      <tr>
+        <th
+          [nzWidth]="'1%'"
+          [nzChecked]="checked"
+          [nzIndeterminate]="indeterminate"
+          (nzCheckedChange)="onAllChecked($event)"
+        ></th>
+        <th [nzWidth]="'20%'">ชื่อ</th>
+        <th>สถานะ</th>
+        <th>จำนวน</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of inventoryTable.data">
+        <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+        <td>
+          <a [routerLink]="[data.id]">{{ data.name }}</a>
+        </td>
+        <td>
+          <nz-tag *ngIf="data.status === inventoryStatus.OutOfStock" [nzColor]="'#f50'">หมด</nz-tag>
+        </td>
+        <td>{{ data.quantity }} / {{ data.maxQuantity }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

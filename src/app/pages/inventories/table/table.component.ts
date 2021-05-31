@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message'
-import { Inventory } from 'src/app/core/model/inventory'
+import { Inventory, InventoryStatus } from 'src/app/core/model/inventory'
 
 @Component({
   selector: 'app-table',
@@ -15,6 +15,10 @@ export class TableComponent implements OnInit {
   private listOfCurrentPageData: ReadonlyArray<Inventory> = []
   public setOfCheckedId: Set<number> = new Set<number>()
 
+  public get inventoryStatus(): typeof InventoryStatus {
+    return InventoryStatus
+  }
+
   public constructor(private nzMessageService: NzMessageService) {
     this.checked = false
     this.indeterminate = false
@@ -28,6 +32,7 @@ export class TableComponent implements OnInit {
         quantity: 1,
         maxQuantity: 2,
         unit: 'ถุง',
+        status: 0,
       },
       {
         id: 2,
@@ -35,6 +40,7 @@ export class TableComponent implements OnInit {
         quantity: 1,
         maxQuantity: 2,
         unit: 'หลอด',
+        status: 0,
       },
       {
         id: 3,
@@ -42,6 +48,7 @@ export class TableComponent implements OnInit {
         quantity: 0,
         maxQuantity: 2,
         unit: 'หลอด',
+        status: 1,
       },
     ]
   }

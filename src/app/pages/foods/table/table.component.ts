@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message'
-import { Food } from 'src/app/core/model/food'
+import { Food, FoodStatus } from 'src/app/core/model/food'
 import { FoodsService } from 'src/app/core/services/foods.service'
 
 @Component({
@@ -16,6 +16,10 @@ export class TableComponent implements OnInit {
   public listOfFoodData: Food[] = []
   private listOfCurrentPageData: ReadonlyArray<Food> = []
   public setOfCheckedId: Set<number> = new Set<number>()
+
+  public get foodStatus(): typeof FoodStatus {
+    return FoodStatus
+  }
 
   public constructor(private foodService: FoodsService, private nzMessageService: NzMessageService) {
     this.today = new Date()
@@ -36,6 +40,7 @@ export class TableComponent implements OnInit {
         quantity: 2,
         buyDate: new Date('2021-04-01'),
         expireDate: new Date('2021-05-27'),
+        status: 1,
       },
       {
         id: 2,
@@ -43,13 +48,15 @@ export class TableComponent implements OnInit {
         quantity: 2,
         buyDate: new Date('2021-04-01'),
         expireDate: new Date('2021-05-28'),
+        status: 1,
       },
       {
         id: 3,
         name: 'ปาปีก้า',
         quantity: 2,
         buyDate: new Date('2021-04-01'),
-        expireDate: new Date('2021-07-29'),
+        expireDate: new Date('2022-04-01'),
+        status: 0,
       },
     ]
   }

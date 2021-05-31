@@ -1,6 +1,6 @@
 <nz-layout class="layout">
   <nz-header>
-    <div class="header-trigger" (click)="isCollapsed = !isCollapsed">
+    <div class="header-trigger noselect" (click)="isCollapsed = !isCollapsed">
       <i nz-icon [nzType]="isCollapsed ? 'menu' : 'menu-fold'" nzTheme="outline"></i>
     </div>
     <div *ngIf="innerWidth >= 992" class="logo"></div>
@@ -35,11 +35,11 @@
   </nz-header>
   <nz-layout>
     <nz-sider
-      class="sider-menu"
+      class="sider-menu noselect"
       nzCollapsible
       [(nzCollapsed)]="isCollapsed"
       [nzTrigger]="null"
-      nzBreakpoint="md"
+      nzBreakpoint="lg"
       [nzCollapsedWidth]="innerWidth >= 992 ? 80 : 0"
     >
       <ul nz-menu nzTheme="light" nzMode="inline">
@@ -88,7 +88,20 @@
         <ng-template #portalSubmenuTemplate><i class="fas fa-ellipsis-h fa-lg"></i><span>Portal</span></ng-template>
       </ul>
     </nz-sider>
-    <nz-layout>
+    <nz-layout
+      [className]="
+        innerWidth < 992
+          ? 'main main__mobile-collapsed'
+          : isCollapsed
+          ? 'main main__collapsed'
+          : 'main main__uncollapsed'
+      "
+    >
+      <div
+        *ngIf="innerWidth < 992"
+        [className]="isCollapsed ? 'overlay' : 'overlay overlay-toggled'"
+        (click)="isCollapsed = true"
+      ></div>
       <nz-content>
         <nz-breadcrumb>
           <nz-breadcrumb-item *ngFor="let breadcrumb of breadcrumbs; let i = index">
@@ -100,9 +113,7 @@
             </ng-template>
           </nz-breadcrumb-item>
         </nz-breadcrumb>
-        <div class="inner-content">
-          <router-outlet></router-outlet>
-        </div>
+        <router-outlet></router-outlet>
       </nz-content>
     </nz-layout>
   </nz-layout>

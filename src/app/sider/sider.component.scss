@@ -1,0 +1,22 @@
+@import 'variables';
+
+nz-sider {
+  background: #fff;
+  height: 100%;
+  margin-top: $header-height;
+  position: fixed;
+  z-index: 500;
+  top: 0;
+  left: 0;
+
+  li:focus {
+    outline: 0;
+  }
+  span {
+    font-size: medium;
+  }
+
+  .sider-menu {
+    border-right: 0;
+  }
+}

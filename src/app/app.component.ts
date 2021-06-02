@@ -15,7 +15,6 @@ import { GENERAL_ENVIRONMENT_CONFIG } from './core/provider-name-token'
 export class AppComponent implements OnInit, OnDestroy {
   public isCollapsed: boolean
   public innerWidth: number
-  public user: any
 
   private resizeObservable: Observable<Event>
   private resizeSubscription: Subscription

@@ -1,4 +1,4 @@
-$header-height: 64px;
+@import 'variables';
 
 :host {
   display: flex;
@@ -52,29 +52,8 @@ nz-header {
   display: inline-block;
 }
 
-nz-sider {
-  background: #fff;
-  height: 100%;
-  margin-top: $header-height;
-  position: fixed;
-  z-index: 500;
-  top: 0;
-  left: 0;
-
-  li:focus {
-    outline: 0;
-  }
-  span {
-    font-size: medium;
-  }
-
-  .sider-menu {
-    border-right: 0;
-  }
-}
-
 .main {
-  width: 100%;
+  // width: 100%;
   overflow: auto;
   padding: 24px;
   -webkit-transition: all 0.2s ease;

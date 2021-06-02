@@ -37,7 +37,8 @@ const listOfAvatarColor = [
           <span *ngIf="user">{{ user.firstName }} {{ user.lastName }}</span>
           <nz-dropdown-menu #currentUserDropdown="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item><i nz-icon nzType="logout" nzTheme="outline"></i>Log Out</li>
+              <li nz-menu-item><i nz-icon nzType="home" nzTheme="outline"></i>หน้าหลัก</li>
+              <li nz-menu-item><i nz-icon nzType="logout" nzTheme="outline"></i>ออกจากระบบ</li>
             </ul>
           </nz-dropdown-menu>
         </button>

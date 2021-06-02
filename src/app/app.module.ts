@@ -34,11 +34,12 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { AUTHENTICATION_CONFIG, GENERAL_ENVIRONMENT_CONFIG, WEB_SERVICE_CONFIG } from './core/provider-name-token'
 import { environment } from '../environments/environment'
 import { CurrentUserComponent } from './current-user/current-user.component'
+import { SiderComponent } from './sider/sider.component'
 
 registerLocaleData(th)
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, BreadcrumbComponent, CurrentUserComponent],
+  declarations: [AppComponent, DashboardComponent, BreadcrumbComponent, CurrentUserComponent, SiderComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

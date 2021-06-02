@@ -1,27 +1,70 @@
-# SmartHome
+# Smart Home
+
+This repository provide Angular Smart Home project with Docker. In this project include docker for development and production
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
 
-## Development server
+## Usage
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. To run in development mode
 
-## Code scaffolding
+   Run Docker Compose to start container (devbox):
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+   ```sh
+   docker compose -f docker-compose.dev.yml up --build
+   ```
 
-## Build
+   You app is now ready. You don't need to re-compose the container because it has hot-reload feature.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   If you want to stop container you can run following command to destroy container.
 
-## Running unit tests
+   ```sh
+   docker compose -f docker-compose.dev.yml down
+   ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+2. To build and deploy container in production mode
 
-## Running end-to-end tests
+   2.1 Build docker image
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   ```sh
+   docker build -f docker/production/Dockerfile . -t smart-home:<IMAGE-TAG>
+   ```
 
-## Further help
+   `<IMAGE-TAG>` is a tag of image e.g. `smart-home:1.0`, `smart-home:lts`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   2.2 Clear dangling image
+
+   ```sh
+   docker container prune -f && docker image prune -f
+   ```
+
+   2.3 Run service
+
+   Setup image tag version
+
+   ```sh
+   echo 'TAG=<IMAGE-TAG>' > .env
+   ```
+
+   If service is running. stop and remove service before run it
+
+   ```sh
+   docker stop smart-home
+   docker rm smart-home
+   ```
+
+   If you don't have external docker network.
+
+   ```
+   docker network create web_proxy
+   ```
+
+   Run service
+
+   ```sh
+   docker-compose up -d
+   ```
+
+## Copyright & Disclaimer
+
+© Chanon Treemeth | May 2021

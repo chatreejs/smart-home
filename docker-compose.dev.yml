@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  smart-home-dev:
+    container_name: smart-home-dev
+    build:
+      context: .
+      dockerfile: './docker/develop/Dockerfile'
+    ports:
+      - 4200:4200
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    entrypoint: ng serve --host 0.0.0.0

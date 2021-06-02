@@ -7,19 +7,6 @@ import { filter, map } from 'rxjs/operators'
 import { GeneralEnvironmentConfig } from './core/environment-config'
 import { GENERAL_ENVIRONMENT_CONFIG } from './core/provider-name-token'
 
-const listOfAvatarColor = [
-  '#FFB900',
-  '#D83B01',
-  '#B50E0E',
-  '#E81123',
-  '#B4009E',
-  '#5C2D91',
-  '#0078D7',
-  '#00B4FF',
-  '#008272',
-  '#107C10',
-]
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,8 +16,6 @@ export class AppComponent implements OnInit, OnDestroy {
   public isCollapsed: boolean
   public innerWidth: number
   public user: any
-  public avatarName: string
-  public avatarColor: string
 
   private resizeObservable: Observable<Event>
   private resizeSubscription: Subscription
@@ -42,8 +27,6 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(GENERAL_ENVIRONMENT_CONFIG) private generalEnvironmentConfig: GeneralEnvironmentConfig
   ) {
     this.isCollapsed = false
-    this.avatarName = ''
-    this.avatarColor = ''
 
     // Subscribe window inner width
     this.innerWidth = window.innerWidth
@@ -73,29 +56,6 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((title: string) => {
         this.titleService.setTitle(title)
       })
-
-    // fake
-    this.user = {
-      firstName: 'ชื่อ',
-      lastName: 'นามสกุล',
-    }
-    this.avatarName = this.calculateAvatarName(this.user.firstName, this.user.lastName)
-    this.avatarColor = this.calculateAvatarColor(this.user.firstName)
-  }
-
-  public calculateAvatarName(firstName: string, lastName: string): string {
-    const firstLetter = firstName.substr(0, 1)
-    const lastLetter = lastName.substr(0, 1)
-    return firstLetter + lastLetter
-  }
-
-  public calculateAvatarColor(firstName: string): string {
-    let sum = 0
-    for (let i = 0; i < firstName.length; i++) {
-      sum += firstName.charCodeAt(i)
-    }
-    let colorId = sum % listOfAvatarColor.length
-    return listOfAvatarColor[colorId]
   }
 
   public ngOnDestroy(): void {

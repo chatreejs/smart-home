@@ -1,4 +1,4 @@
-$height: 64px;
+$header-height: 64px;
 
 :host {
   display: flex;
@@ -23,7 +23,7 @@ nz-header {
 }
 
 .header__trigger {
-  height: $height;
+  height: $header-height;
   padding: 0 8px;
   margin-right: 24px;
   font-size: 18px;
@@ -52,30 +52,10 @@ nz-header {
   display: inline-block;
 }
 
-.header__current-user-group {
-  display: flex;
-  float: right;
-  height: $height;
-  margin-left: auto;
-  overflow: hidden;
-}
-
-.header__current-user-group__item {
-  padding: 0 8px;
-}
-
-.header__current-user-group__item-button {
-  height: $height - 12px;
-}
-
-.ant-avatar {
-  font-size: 1.2rem;
-}
-
 nz-sider {
   background: #fff;
   height: 100%;
-  margin-top: $height;
+  margin-top: $header-height;
   position: fixed;
   z-index: 500;
   top: 0;
@@ -135,7 +115,7 @@ nz-sider {
 nz-content {
   width: 100%;
   min-height: 0;
-  margin-top: $height;
+  margin-top: $header-height;
   margin-right: auto;
   margin-left: auto;
 }

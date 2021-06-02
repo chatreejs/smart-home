@@ -5,33 +5,7 @@
     </div>
     <div *ngIf="innerWidth >= 992" class="logo"></div>
     <div *ngIf="innerWidth < 992" class="logo-sm"></div>
-    <div class="header__current-user-group">
-      <div class="header__current-user-group__item">
-        <button
-          class="header__current-user-group__item-button"
-          nz-button
-          nzType="default"
-          nzShape="round"
-          nz-dropdown
-          nzTrigger="click"
-          [nzDropdownMenu]="currentUserDropdown"
-        >
-          <nz-avatar
-            [nzText]="avatarName"
-            [ngStyle]="{ 'background-color': avatarColor }"
-            nzSize="large"
-            style="vertical-align: middle; margin-right: 8px"
-          >
-          </nz-avatar>
-          <span *ngIf="user">{{ user.firstName }} {{ user.lastName }}</span>
-          <nz-dropdown-menu #currentUserDropdown="nzDropdownMenu">
-            <ul nz-menu>
-              <li nz-menu-item><i nz-icon nzType="logout" nzTheme="outline"></i>Log Out</li>
-            </ul>
-          </nz-dropdown-menu>
-        </button>
-      </div>
-    </div>
+    <app-current-user></app-current-user>
   </nz-header>
   <nz-layout>
     <nz-sider

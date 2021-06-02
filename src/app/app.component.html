@@ -1,14 +1,14 @@
 <nz-layout class="layout">
   <nz-header>
-    <div class="header-trigger noselect" (click)="isCollapsed = !isCollapsed">
+    <div class="header__trigger noselect" (click)="isCollapsed = !isCollapsed">
       <i nz-icon [nzType]="isCollapsed ? 'menu' : 'menu-fold'" nzTheme="outline"></i>
     </div>
     <div *ngIf="innerWidth >= 992" class="logo"></div>
     <div *ngIf="innerWidth < 992" class="logo-sm"></div>
-    <div class="header-current-user-group">
-      <div class="header-current-user-group__item">
+    <div class="header__current-user-group">
+      <div class="header__current-user-group__item">
         <button
-          class="header-current-user-group__item-button"
+          class="header__current-user-group__item-button"
           nz-button
           nzType="default"
           nzShape="round"
@@ -112,16 +112,7 @@
         (click)="isCollapsed = true"
       ></div>
       <nz-content>
-        <nz-breadcrumb>
-          <nz-breadcrumb-item *ngFor="let breadcrumb of breadcrumbs; let i = index">
-            <ng-container *ngIf="i === breadcrumbs.length - 1; else linkBreadcrumb">{{
-              breadcrumb.label
-            }}</ng-container>
-            <ng-template #linkBreadcrumb>
-              <a [routerLink]="breadcrumb.path">{{ breadcrumb.label }}</a>
-            </ng-template>
-          </nz-breadcrumb-item>
-        </nz-breadcrumb>
+        <app-breadcrumb></app-breadcrumb>
         <router-outlet></router-outlet>
       </nz-content>
     </nz-layout>

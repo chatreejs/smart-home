@@ -28,6 +28,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar'
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 
 import { AppComponent } from './app.component'
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component'
 import { DashboardComponent } from './pages/dashboard/dashboard.component'
 
 import { AUTHENTICATION_CONFIG, GENERAL_ENVIRONMENT_CONFIG, WEB_SERVICE_CONFIG } from './core/provider-name-token'
@@ -36,7 +37,7 @@ import { environment } from '../environments/environment'
 registerLocaleData(th)
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent],
+  declarations: [AppComponent, DashboardComponent, BreadcrumbComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

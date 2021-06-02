@@ -1,6 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core'
 import { Title } from '@angular/platform-browser'
-import { ActivatedRoute, ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { fromEvent, Observable, Subscription } from 'rxjs'
 import { filter, map } from 'rxjs/operators'
 
@@ -20,11 +20,6 @@ const listOfAvatarColor = [
   '#107C10',
 ]
 
-interface BreadcrumbConfig {
-  path: string[]
-  label: string
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -36,11 +31,9 @@ export class AppComponent implements OnInit, OnDestroy {
   public user: any
   public avatarName: string
   public avatarColor: string
-  public breadcrumbs: BreadcrumbConfig[]
 
   private resizeObservable: Observable<Event>
   private resizeSubscription: Subscription
-  private routerSubscription: Subscription
 
   public constructor(
     private titleService: Title,
@@ -51,7 +44,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.isCollapsed = false
     this.avatarName = ''
     this.avatarColor = ''
-    this.breadcrumbs = []
 
     // Subscribe window inner width
     this.innerWidth = window.innerWidth
@@ -59,13 +51,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.resizeSubscription = this.resizeObservable.subscribe((e) => {
       this.innerWidth = window.innerWidth
     })
-
-    // Subscribe router
-    this.routerSubscription = this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.updateBreadCrumb()
-      })
   }
 
   public ngOnInit(): void {
@@ -113,31 +98,7 @@ export class AppComponent implements OnInit, OnDestroy {
     return listOfAvatarColor[colorId]
   }
 
-  private updateBreadCrumb(): void {
-    this.breadcrumbs = this.getBreadCrumb(this.activatedRoute.snapshot)
-  }
-
-  private getBreadCrumb(
-    activatedRouteSnapshot: ActivatedRouteSnapshot,
-    config: BreadcrumbConfig[] = [],
-    tempPaths: string[] = ['/']
-  ): BreadcrumbConfig[] {
-    if (activatedRouteSnapshot.children.length > 0) {
-      if (activatedRouteSnapshot.firstChild?.data.breadcrumb) {
-        tempPaths.push(activatedRouteSnapshot.firstChild.routeConfig?.path || '/')
-        const breadcrumbConfig: BreadcrumbConfig = {
-          path: [...tempPaths],
-          label: activatedRouteSnapshot.firstChild?.data.breadcrumb,
-        }
-        config.push(breadcrumbConfig)
-        return this.getBreadCrumb(activatedRouteSnapshot.firstChild, config, tempPaths)
-      }
-    }
-    return config
-  }
-
   public ngOnDestroy(): void {
     this.resizeSubscription.unsubscribe()
-    this.routerSubscription.unsubscribe()
   }
 }

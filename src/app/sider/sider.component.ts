@@ -29,5 +29,5 @@ export class SiderComponent implements OnInit {
     this.innerWidth = 0
   }
 
-  public ngOnInit(): void { }
+  public ngOnInit(): void {}
 }

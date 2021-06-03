@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { shortMonthNames } from 'src/app/core/constant/month-names-th'
-import { Waterworks, WaterworksStatus } from 'src/app/core/model/waterworks'
+import { Electricity, ElectricityStatus } from 'src/app/core/model/electricity'
 
 @Component({
   selector: 'app-dashboard',
@@ -17,12 +17,12 @@ export class DashboardComponent implements OnInit {
   public dataChart: any
   public optionsChart: any
 
-  public listOfWaterworksData: Waterworks[] = []
-  private listOfCurrentPageData: ReadonlyArray<Waterworks> = []
+  public listOfElectricityData: Electricity[] = []
+  private listOfCurrentPageData: ReadonlyArray<Electricity> = []
   public setOfCheckedId: Set<number> = new Set<number>()
 
-  public get waterworksStatus(): typeof WaterworksStatus {
-    return WaterworksStatus
+  public get electricityStatus(): typeof ElectricityStatus {
+    return ElectricityStatus
   }
 
   public constructor(private nzMessageService: NzMessageService) {
@@ -33,115 +33,113 @@ export class DashboardComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.listOfWaterworksData = [
+    this.listOfElectricityData = [
       {
         id: 1,
-        invoiceNumber: '1115620026688',
+        invoiceNumber: '00567672078',
         meterNumber: 319,
-        waterUse: 13000,
-        waterPrice: 150,
+        electricUse: 88,
+        electricPrice: 32.48,
+        ftRate: -0.1532,
+        electricFtPrice: -1.53,
         discount: 0,
-        serviceCharge: 30,
-        vat: 12.6,
-        total: 192.6,
-        issueDate: new Date('2020-11-10'),
-        dueDate: new Date('2020-11-20'),
+        serviceCharge: 38.22,
+        vat: 4.84,
+        total: 335.06,
+        issueDate: new Date('2020-12-19'),
+        dueDate: new Date('2020-12-30'),
         status: 1,
       },
       {
         id: 2,
-        invoiceNumber: '1115620026688',
+        invoiceNumber: '00567672078',
         meterNumber: 319,
-        waterUse: 6500,
-        waterPrice: 81.22,
+        electricUse: 159,
+        electricPrice: 32.48,
+        ftRate: -0.1532,
+        electricFtPrice: -1.53,
         discount: 0,
-        serviceCharge: 25,
-        vat: 5.69,
-        total: 172,
-        issueDate: new Date('2020-12-10'),
-        dueDate: new Date('2020-12-20'),
+        serviceCharge: 38.22,
+        vat: 4.84,
+        total: 576.86,
+        issueDate: new Date('2021-01-19'),
+        dueDate: new Date('2021-01-30'),
         status: 1,
       },
       {
         id: 3,
-        invoiceNumber: '1115620026688',
+        invoiceNumber: '00567672078',
         meterNumber: 319,
-        waterUse: 6500,
-        waterPrice: 81.22,
+        electricUse: 211,
+        electricPrice: 32.48,
+        ftRate: -0.1532,
+        electricFtPrice: -1.53,
         discount: 0,
-        serviceCharge: 25,
-        vat: 5.69,
-        total: 250,
-        issueDate: new Date('2021-01-10'),
-        dueDate: new Date('2021-01-20'),
+        serviceCharge: 38.22,
+        vat: 4.84,
+        total: 332.34,
+        issueDate: new Date('2021-02-19'),
+        dueDate: new Date('2021-02-30'),
         status: 1,
       },
       {
         id: 4,
-        invoiceNumber: '1115620026688',
+        invoiceNumber: '00567672078',
         meterNumber: 319,
-        waterUse: 6500,
-        waterPrice: 81.22,
+        electricUse: 43,
+        electricPrice: 32.48,
+        ftRate: -0.1532,
+        electricFtPrice: -1.53,
         discount: 0,
-        serviceCharge: 25,
-        vat: 5.69,
-        total: 217,
-        issueDate: new Date('2021-02-10'),
-        dueDate: new Date('2021-02-20'),
+        serviceCharge: 38.22,
+        vat: 4.84,
+        total: 183.3,
+        issueDate: new Date('2021-03-19'),
+        dueDate: new Date('2021-03-30'),
         status: 1,
       },
       {
         id: 5,
-        invoiceNumber: '1115620026688',
+        invoiceNumber: '00567672078',
         meterNumber: 319,
-        waterUse: 6500,
-        waterPrice: 81.22,
+        electricUse: 10,
+        electricPrice: 32.48,
+        ftRate: -0.1532,
+        electricFtPrice: -1.53,
         discount: 0,
-        serviceCharge: 25,
-        vat: 5.69,
-        total: 217,
-        issueDate: new Date('2021-03-10'),
-        dueDate: new Date('2021-03-20'),
+        serviceCharge: 38.22,
+        vat: 4.84,
+        total: 74.01,
+        issueDate: new Date('2021-04-19'),
+        dueDate: new Date('2021-04-30'),
         status: 1,
       },
       {
         id: 6,
-        invoiceNumber: '1115620026688',
+        invoiceNumber: '00567672078',
         meterNumber: 319,
-        waterUse: 6500,
-        waterPrice: 81.22,
+        electricUse: 25,
+        electricPrice: 32.48,
+        ftRate: -0.1532,
+        electricFtPrice: -1.53,
         discount: 0,
-        serviceCharge: 25,
-        vat: 5.69,
-        total: 188,
-        issueDate: new Date('2021-04-10'),
-        dueDate: new Date('2021-04-20'),
-        status: 1,
-      },
-      {
-        id: 7,
-        invoiceNumber: '1115620026688',
-        meterNumber: 319,
-        waterUse: 6500,
-        waterPrice: 81.22,
-        discount: 0,
-        serviceCharge: 25,
-        vat: 5.69,
-        total: 276,
-        issueDate: new Date('2021-05-10'),
-        dueDate: new Date('2021-05-20'),
+        serviceCharge: 38.22,
+        vat: 4.84,
+        total: 74.01,
+        issueDate: new Date('2021-05-19'),
+        dueDate: new Date('2021-05-30'),
         status: 0,
       },
     ]
 
-    this.overdue = this.listOfWaterworksData
-      .map((data) => (data.status === WaterworksStatus.NotPaid ? data.total : 0))
+    this.overdue = this.listOfElectricityData
+      .map((data) => (data.status === ElectricityStatus.NotPaid ? data.total : 0))
       .reduce((prev, cur) => prev + cur)
 
-    if (this.listOfWaterworksData.length > 1) {
+    if (this.listOfElectricityData.length > 1) {
       this.difference =
-        this.listOfWaterworksData[this.listOfWaterworksData.length - 1].total -
-        this.listOfWaterworksData[this.listOfWaterworksData.length - 2].total
+        this.listOfElectricityData[this.listOfElectricityData.length - 1].total -
+        this.listOfElectricityData[this.listOfElectricityData.length - 2].total
     } else {
       this.difference = 0
     }
@@ -149,14 +147,14 @@ export class DashboardComponent implements OnInit {
     // Chart
     this.typeChart = 'line'
     this.dataChart = {
-      labels: this.listOfWaterworksData.slice(0, 6).map((data) => shortMonthNames[data.issueDate.getMonth()]),
+      labels: this.listOfElectricityData.slice(0, 6).map((data) => shortMonthNames[data.issueDate.getMonth()]),
       datasets: [
         {
-          label: 'ค่าน้ำ (บาท)',
-          data: this.listOfWaterworksData.slice(0, 6).map((data) => data.total),
+          label: 'ค่าไฟฟ้า (บาท)',
+          data: this.listOfElectricityData.slice(0, 6).map((data) => data.total),
           fill: true,
-          borderColor: '#3a95cb',
-          backgroundColor: 'rgba(58, 149, 203, 0.1)',
+          borderColor: '#fe8019',
+          backgroundColor: 'rgba(254, 128, 25, 0.1)',
           tension: 0.5,
           pointRadius: 5,
           pointBorderWidth: 2,
@@ -166,7 +164,7 @@ export class DashboardComponent implements OnInit {
     this.optionsChart = {
       title: {
         display: true,
-        text: 'ประวัติการใช้น้ำย้อนหลัง 6 เดือน',
+        text: 'ประวัติการใช้ไฟฟ้าย้อนหลัง 6 เดือน',
       },
       scales: {
         xAxes: [
@@ -207,7 +205,7 @@ export class DashboardComponent implements OnInit {
     this.refreshCheckedStatus()
   }
 
-  public onCurrentPageDataChange($event: ReadonlyArray<Waterworks>): void {
+  public onCurrentPageDataChange($event: ReadonlyArray<Electricity>): void {
     this.listOfCurrentPageData = $event
     this.refreshCheckedStatus()
   }

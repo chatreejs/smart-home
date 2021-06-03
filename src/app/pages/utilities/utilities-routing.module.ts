@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { ElectricityComponent } from './electricity/electricity.component'
 
 const routes: Routes = [
   {
     path: 'electricity',
-    component: ElectricityComponent,
+    loadChildren: () => import('./electricity/electricity.module').then((m) => m.ElectricityModule),
     data: { breadcrumb: 'ไฟฟ้า' },
   },
   {

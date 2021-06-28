@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json ./package.json
 RUN npm install
 COPY . /app
-RUN npm run ng -- build --prod --output-path=dist
+RUN npm run ng -- build --output-path=dist
 
 # STAGE 2: Run
 FROM nginx:alpine

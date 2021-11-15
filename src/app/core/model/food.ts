@@ -8,6 +8,6 @@ export interface Food {
 }
 
 export enum FoodStatus {
-  Active = 0,
-  Expired,
+  Active = 'active',
+  Expired = 'expired',
 }

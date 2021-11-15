@@ -1,14 +1,10 @@
-import { LOCALE_ID, NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from './app-routing.module'
 import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
-
-import th from '@angular/common/locales/th'
-import { registerLocaleData } from '@angular/common'
-import { NZ_I18N, th_TH, NZ_DATE_LOCALE } from 'ng-zorro-antd/i18n'
 
 import { IconsProviderModule } from './icons-provider.module'
 
@@ -29,14 +25,12 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 
 import { AppComponent } from './app.component'
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component'
-import { DashboardComponent } from './pages/dashboard/dashboard.component'
-
-import { AUTHENTICATION_CONFIG, GENERAL_ENVIRONMENT_CONFIG, WEB_SERVICE_CONFIG } from './core/provider-name-token'
-import { environment } from '../environments/environment'
 import { CurrentUserComponent } from './current-user/current-user.component'
+import { DashboardComponent } from './pages/dashboard/dashboard.component'
 import { SiderComponent } from './sider/sider.component'
 
-registerLocaleData(th)
+import { environment } from '../environments/environment'
+import { WebServiceUrl } from './core/web-service-token'
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, BreadcrumbComponent, CurrentUserComponent, SiderComponent],
@@ -64,12 +58,8 @@ registerLocaleData(th)
     NzDropDownModule,
   ],
   providers: [
-    { provide: GENERAL_ENVIRONMENT_CONFIG, useValue: environment },
-    { provide: WEB_SERVICE_CONFIG, useValue: environment },
-    { provide: AUTHENTICATION_CONFIG, useValue: environment },
-    { provide: NZ_I18N, useValue: th_TH },
-    { provide: NZ_DATE_LOCALE, useValue: th },
-    { provide: LOCALE_ID, useValue: 'th_TH' },
+    // Required register, if application use AuthenticationModule.
+    { provide: WebServiceUrl, useValue: environment.webServiceUrl },
   ],
   bootstrap: [AppComponent],
 })

@@ -2,30 +2,26 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { AuthenticationConfig } from "src/app/core/authentication-config"
-import { GeneralEnvironmentConfig } from "src/app/core/environment-config"
-import { WebServiceConfig } from "src/app/core/web-service-config"
+import { AuthenticationConfig } from 'src/app/core/config/authentication-config'
+import { ApplicationConfig } from 'src/app/core/config/application.config'
 
-export const environment:
-  GeneralEnvironmentConfig &
-  WebServiceConfig &
-  AuthenticationConfig = {
-  // GeneralEnvironmentConfig
+export const environment: ApplicationConfig & AuthenticationConfig = {
   production: false,
-  appName: "Smart Home",
-  cookieAcceptExpireDateNumber: 7,
-  fullSecureAuthentication: false,
+  webServiceUrl: 'http://localhost:3000',
 
-  // WebServiceConfig
-  webServiceUrl: 'https://localhost:5001',
+  // OAuth client information.
+  clientId: 'smart-home-application',
+  clientSecret: '02FZf68/Xff0hrSQgc7Je5CNgdjaSgltNU4gb3AbJ9A=',
 
-  // AuthenticationConfig
-  issuerUri: 'https://localhost:5001/api/v1/authen',
-  clientId: 'toktak.io',
-  clientSecret: "",
-  redirectUri: 'http://localhost:4200/callback',
-  scope: 'smart-home',
-  redirectUrlAfterLogedIn: 'http://localhost:4200',
+  // When use full secure authentication, application are required
+  // the callbackUri property.
+  fullSecureAuthentication: true,
+  callbackUri: 'http://localhost:4200/callback',
+
+  // If not use full secure authentication, application are required
+  // the loginUri property.
+  // fullSecureAuthentication: false,
+  // loginUri: 'http://localhost:4200/login'
 }
 
 /*

@@ -32,6 +32,14 @@ import { SiderComponent } from './sider/sider.component'
 import { environment } from '../environments/environment'
 import { WebServiceUrl } from './core/web-service-token'
 
+/** config angular i18n **/
+import { registerLocaleData } from '@angular/common'
+import en from '@angular/common/locales/en'
+registerLocaleData(en)
+
+/** config ng-zorro-antd i18n **/
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n'
+
 @NgModule({
   declarations: [AppComponent, DashboardComponent, BreadcrumbComponent, CurrentUserComponent, SiderComponent],
   imports: [
@@ -58,6 +66,7 @@ import { WebServiceUrl } from './core/web-service-token'
     NzDropDownModule,
   ],
   providers: [
+    { provide: NZ_I18N, useValue: en_US },
     // Required register, if application use AuthenticationModule.
     { provide: WebServiceUrl, useValue: environment.webServiceUrl },
   ],

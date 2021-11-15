@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { HttpErrorResponse } from '@angular/common/http'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message'
+import { NzTableQueryParams } from 'ng-zorro-antd/table'
 import { Observable } from 'rxjs'
 import { Food, FoodStatus } from 'src/app/core/model/food'
 import { Pagination } from 'src/app/core/model/pagination'
@@ -10,15 +12,16 @@ import { FoodsService } from '../foods.service'
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
   public today: Date
   public checked: boolean
   public indeterminate: boolean
   public foods: Food[] = []
+  public loading: boolean = false
 
   public pageIndex: number = 1
   public pageSize: number = 10
-  public total: number = 0
+  public total: number = 1
 
   private listOfCurrentPageData: ReadonlyArray<Food> = []
   public setOfCheckedId: Set<number> = new Set<number>()
@@ -34,24 +37,27 @@ export class TableComponent implements OnInit {
     this.indeterminate = false
   }
 
-  public ngOnInit(): void {
-    this.loadFoodData()
-  }
+  public ngOnInit(): void {}
 
   private loadFoodData(): void {
-    this.foodService.getFoods(this.pageIndex, this.pageSize).subscribe((res) => {
-      this.foods = res.items
-      this.total = res.meta.totalItems
-    })
+    this.loading = true
+    this.foodService.getFoods(this.pageIndex, this.pageSize).subscribe(
+      (res: Pagination<Food>) => {
+        this.loading = false
+        this.foods = res.items
+        this.total = res.meta.totalItems
+      },
+      (err: HttpErrorResponse) => {
+        this.loading = false
+        this.foods = []
+        this.nzMessageService.error(`เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ (Code: ${err.status})`)
+      }
+    )
   }
 
-  public onPageIndexChange(pageIndex: number): void {
-    this.pageIndex = pageIndex
-    this.loadFoodData()
-  }
-
-  public onPageSizeChange(pageSize: number): void {
-    this.pageSize = pageSize
+  public onQueryParamsChange(params: NzTableQueryParams): void {
+    this.pageIndex = params.pageIndex
+    this.pageSize = params.pageSize
     this.loadFoodData()
   }
 
@@ -85,5 +91,10 @@ export class TableComponent implements OnInit {
 
   public onConfirmDelete(): void {
     this.nzMessageService.success('ลบรายการอาหารเรียบร้อยแล้ว')
+  }
+
+  public ngOnDestroy(): void {
+    this.foods = []
+    this.listOfCurrentPageData = []
   }
 }

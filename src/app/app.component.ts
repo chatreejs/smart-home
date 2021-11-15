@@ -4,9 +4,6 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { fromEvent, Observable, Subscription } from 'rxjs'
 import { filter, map } from 'rxjs/operators'
 
-import { GeneralEnvironmentConfig } from './core/environment-config'
-import { GENERAL_ENVIRONMENT_CONFIG } from './core/provider-name-token'
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -19,12 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private resizeObservable: Observable<Event>
   private resizeSubscription: Subscription
 
-  public constructor(
-    private titleService: Title,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    @Inject(GENERAL_ENVIRONMENT_CONFIG) private generalEnvironmentConfig: GeneralEnvironmentConfig
-  ) {
+  public constructor(private titleService: Title, private router: Router, private activatedRoute: ActivatedRoute) {
     this.isCollapsed = false
 
     // Subscribe window inner width
@@ -36,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
-    const appTitle = this.generalEnvironmentConfig.appName
+    const appTitle = 'SmartHome'
     // Set dynamic title by page
     this.router.events
       .pipe(

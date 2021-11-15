@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message'
+import { Observable } from 'rxjs'
 import { Food, FoodStatus } from 'src/app/core/model/food'
-import { FoodsService } from 'src/app/core/services/foods.service'
+import { Pagination } from 'src/app/core/model/pagination'
+import { FoodsService } from '../foods.service'
 
 @Component({
   selector: 'app-table',
@@ -12,8 +14,12 @@ export class TableComponent implements OnInit {
   public today: Date
   public checked: boolean
   public indeterminate: boolean
+  public foods: Food[] = []
 
-  public listOfFoodData: Food[] = []
+  public pageIndex: number = 1
+  public pageSize: number = 10
+  public total: number = 0
+
   private listOfCurrentPageData: ReadonlyArray<Food> = []
   public setOfCheckedId: Set<number> = new Set<number>()
 
@@ -29,36 +35,24 @@ export class TableComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    // this.foodService.getFoods().subscribe((response) => {
-    //   console.log(response)
-    // })
+    this.loadFoodData()
+  }
 
-    this.listOfFoodData = [
-      {
-        id: 1,
-        name: 'ปลากระป๋อง ปลากระป๋อง โรซ่า',
-        quantity: 2,
-        buyDate: new Date('2021-04-01'),
-        expireDate: new Date('2021-05-27'),
-        status: 1,
-      },
-      {
-        id: 2,
-        name: 'ปาท่องโก๋',
-        quantity: 2,
-        buyDate: new Date('2021-04-01'),
-        expireDate: new Date('2021-05-28'),
-        status: 1,
-      },
-      {
-        id: 3,
-        name: 'ปาปีก้า',
-        quantity: 2,
-        buyDate: new Date('2021-04-01'),
-        expireDate: new Date('2022-04-01'),
-        status: 0,
-      },
-    ]
+  private loadFoodData(): void {
+    this.foodService.getFoods(this.pageIndex, this.pageSize).subscribe((res) => {
+      this.foods = res.items
+      this.total = res.meta.totalItems
+    })
+  }
+
+  public onPageIndexChange(pageIndex: number): void {
+    this.pageIndex = pageIndex
+    this.loadFoodData()
+  }
+
+  public onPageSizeChange(pageSize: number): void {
+    this.pageSize = pageSize
+    this.loadFoodData()
   }
 
   public updateCheckedSet(id: number, checked: boolean): void {

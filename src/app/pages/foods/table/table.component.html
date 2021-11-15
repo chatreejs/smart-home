@@ -31,11 +31,11 @@
     </nz-col>
   </nz-row>
   <nz-table
+    *ngIf="foods"
     #foodTable
-    nzShowPagination
-    nzShowSizeChanger
+    [nzShowPagination]="false"
     nzSize="small"
-    [nzData]="listOfFoodData"
+    [nzData]="foods"
     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
   >
     <thead>
@@ -68,4 +68,14 @@
       </tr>
     </tbody>
   </nz-table>
+  <nz-pagination
+    [nzTotal]="total"
+    [nzPageIndex]="pageIndex"
+    [nzPageSize]="pageSize"
+    [nzShowSizeChanger]="true"
+    [nzPageSizeOptions]="[10, 25, 50, 100]"
+    [nzSize]="'small'"
+    (nzPageIndexChange)="onPageIndexChange($event)"
+    (nzPageSizeChange)="onPageSizeChange($event)"
+  ></nz-pagination>
 </nz-card>

@@ -16,6 +16,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag'
 import { NzTableModule } from 'ng-zorro-antd/table'
 import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzCardModule } from 'ng-zorro-antd/card'
+import { NzPaginationModule } from 'ng-zorro-antd/pagination'
 
 @NgModule({
   declarations: [FoodsComponent, TableComponent, FoodsDetailComponent],
@@ -33,6 +34,7 @@ import { NzCardModule } from 'ng-zorro-antd/card'
     NzInputModule,
     NzTagModule,
     NzCardModule,
+    NzPaginationModule,
   ],
 })
 export class FoodsModule {}

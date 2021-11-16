@@ -55,6 +55,7 @@
         <th [nzWidth]="'20%'">ชื่อ</th>
         <th>สถานะ</th>
         <th>จำนวน</th>
+        <th>หน่วย</th>
         <th>วันที่ซื้อ</th>
         <th>วันหมดอายุ</th>
       </tr>
@@ -67,8 +68,10 @@
         </td>
         <td>
           <nz-tag *ngIf="data.status === foodStatus.Expired" [nzColor]="'#f50'">หมดอายุ</nz-tag>
+          <nz-tag *ngIf="data.status === foodStatus.Soon" [nzColor]="'#ffc069'">ใกล้หมดอายุ</nz-tag>
         </td>
         <td>{{ data.quantity }}</td>
+        <td>{{ data.unit }}</td>
         <td>{{ data.buyDate | date }}</td>
         <td>{{ data.expireDate | date }}</td>
       </tr>

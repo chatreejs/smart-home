@@ -66,8 +66,46 @@ body {
   }
 }
 
+.ant-btn {
+  border-radius: 6px;
+
+  &.ant-btn-primary {
+    background-image: linear-gradient(to right, #4cb8c4 0%, #3cd3ad 51%, #4cb8c4 100%);
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    display: block;
+    border: none;
+  }
+
+  &.ant-btn-primary:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.ant-input-affix-wrapper {
+  border-radius: 6px;
+}
+
+nz-card {
+  &.ant-card {
+    margin-bottom: 1em;
+    filter: drop-shadow(rgba(25, 19, 38, 0.15) 0px 1px 4px);
+    border-radius: 16px;
+  }
+}
+
 nz-table {
   overflow-x: auto;
+}
+
+nz-tag {
+  &.ant-tag {
+    box-shadow: rgb(0 0 0 / 8%) 0px 6px 10px;
+  }
 }
 
 i.fa,

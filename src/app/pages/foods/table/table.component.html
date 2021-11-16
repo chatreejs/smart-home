@@ -1,13 +1,13 @@
 <nz-card>
   <h2 nz-typography>รายการอาหาร</h2>
   <nz-row class="action-bar" [nzGutter]="8">
-    <nz-col>
+    <div nz-col>
       <button nz-button nzType="primary" [routerLink]="['new']">
         <i nz-icon nzType="plus" nzTheme="outline"></i>
         เพิ่มอาหาร
       </button>
-    </nz-col>
-    <nz-col>
+    </div>
+    <div nz-col>
       <button
         nz-popconfirm
         [nzPopconfirmTitle]="'คุณต้องการลบรายการอาหารจำนวน ' + this.setOfCheckedId.size + ' รายการใช่ไหม?'"
@@ -20,7 +20,7 @@
         <i nz-icon nzType="delete" nzTheme="outline"></i>
         ลบ
       </button>
-    </nz-col>
+    </div>
   </nz-row>
   <nz-row class="search-bar">
     <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">

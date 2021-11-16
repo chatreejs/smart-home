@@ -32,13 +32,13 @@
 <nz-card>
   <h3 nz-typography>รายละเอียดการใช้น้ำประปา</h3>
   <nz-row class="action-bar" [nzGutter]="8">
-    <nz-col>
+    <div nz-col>
       <button nz-button nzType="primary" [routerLink]="['new']">
         <i nz-icon nzType="plus" nzTheme="outline"></i>
         เพิ่มรายการ
       </button>
-    </nz-col>
-    <nz-col>
+    </div>
+    <div nz-col>
       <button
         nz-popconfirm
         [nzPopconfirmTitle]="'คุณต้องการลบรายการน้ำประปาจำนวน ' + setOfCheckedId.size + ' รายการใช่ไหม?'"
@@ -51,7 +51,7 @@
         <i nz-icon nzType="delete" nzTheme="outline"></i>
         ลบ
       </button>
-    </nz-col>
+    </div>
   </nz-row>
   <nz-table
     #waterworksTable

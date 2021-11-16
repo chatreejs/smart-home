@@ -17,12 +17,14 @@ import { NzTableModule } from 'ng-zorro-antd/table'
 import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzCardModule } from 'ng-zorro-antd/card'
 import { NzPaginationModule } from 'ng-zorro-antd/pagination'
+import { ReactiveFormsModule } from '@angular/forms'
 
 @NgModule({
   declarations: [FoodsComponent, TableComponent, FoodsDetailComponent],
   imports: [
     CommonModule,
     FoodsRoutingModule,
+    ReactiveFormsModule,
 
     IconsProviderModule,
 

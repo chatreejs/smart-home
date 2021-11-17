@@ -25,7 +25,7 @@
   <nz-row class="search-bar">
     <nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24">
       <nz-input-group [nzPrefix]="prefixTemplateSearchBar">
-        <input type="text" nz-input placeholder="ค้นหา..." />
+        <input type="text" nz-input placeholder="ค้นหา..." [(ngModel)]="search" (ngModelChange)="onSearchChanged()" />
       </nz-input-group>
       <ng-template #prefixTemplateSearchBar><i nz-icon nzType="search" nzTheme="outline"></i></ng-template>
     </nz-col>

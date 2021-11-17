@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { NzTableQueryParams } from 'ng-zorro-antd/table'
+import { Subject } from 'rxjs'
+import { debounceTime } from 'rxjs/operators'
 import { Food, FoodStatus } from 'src/app/core/model/food'
 import { Pagination } from 'src/app/core/model/pagination'
 import { FoodsService } from '../foods.service'
@@ -12,15 +14,17 @@ import { FoodsService } from '../foods.service'
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit, OnDestroy {
-  public today: Date
-  public checked: boolean
-  public indeterminate: boolean
+  public today!: Date
+  public checked!: boolean
+  public indeterminate!: boolean
   public foods: Food[] = []
   public loading: boolean = false
 
   public pageIndex: number = 1
   public pageSize: number = 10
   public total: number = 1
+  public search: string = ''
+  public searchChanged: Subject<string> = new Subject<string>()
 
   private listOfCurrentPageData: ReadonlyArray<Food> = []
   public setOfCheckedId: Set<number> = new Set<number>()
@@ -30,17 +34,19 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   public constructor(private foodService: FoodsService, private nzMessageService: NzMessageService) {
+    this.searchChanged.pipe(debounceTime(1000)).subscribe(() => this.loadFoodData())
+  }
+
+  public ngOnInit(): void {
     this.today = new Date()
     this.today.setHours(23, 59, 59, 999)
     this.checked = false
     this.indeterminate = false
   }
 
-  public ngOnInit(): void {}
-
   private loadFoodData(): void {
     this.loading = true
-    this.foodService.getFoods(this.pageIndex, this.pageSize).subscribe(
+    this.foodService.getFoods(this.pageIndex, this.pageSize, this.search).subscribe(
       (res: Pagination<Food>) => {
         this.loading = false
         this.foods = res.items
@@ -52,6 +58,10 @@ export class TableComponent implements OnInit, OnDestroy {
         this.nzMessageService.error(`เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ (Code: ${err.status})`, { nzDuration: 5000 })
       }
     )
+  }
+
+  public onSearchChanged(): void {
+    this.searchChanged.next()
   }
 
   public onQueryParamsChange(params: NzTableQueryParams): void {
@@ -86,6 +96,10 @@ export class TableComponent implements OnInit, OnDestroy {
   public refreshCheckedStatus(): void {
     this.checked = this.listOfCurrentPageData.every((item) => this.setOfCheckedId.has(item.id!))
     this.indeterminate = this.listOfCurrentPageData.some((item) => this.setOfCheckedId.has(item.id!)) && !this.checked
+    if (this.listOfCurrentPageData.length === 0) {
+      this.checked = false
+      this.indeterminate = false
+    }
   }
 
   public onConfirmDelete(): void {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 
 import { FoodsRoutingModule } from './foods-routing.module'
 import { IconsProviderModule } from 'src/app/icons-provider.module'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { FoodsComponent } from './foods.component'
 import { TableComponent } from './table/table.component'
@@ -20,6 +20,7 @@ import { NzCardModule } from 'ng-zorro-antd/card'
 import { NzPaginationModule } from 'ng-zorro-antd/pagination'
 import { NzFormModule } from 'ng-zorro-antd/form'
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'
+import { NzSpinModule } from 'ng-zorro-antd/spin'
 
 @NgModule({
   declarations: [FoodsComponent, TableComponent, FoodsDetailComponent],
@@ -27,6 +28,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'
     CommonModule,
     FoodsRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
 
     IconsProviderModule,
 
@@ -41,6 +43,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker'
     NzPaginationModule,
     NzFormModule,
     NzDatePickerModule,
+    NzSpinModule,
   ],
 })
 export class FoodsModule {}

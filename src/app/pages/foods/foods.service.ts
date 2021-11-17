@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core'
-import { HttpClient, HttpErrorResponse } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http'
 import { Observable, throwError } from 'rxjs'
 import { take, catchError } from 'rxjs/operators'
 import { WebServiceUrl } from '../../core/web-service-token'
@@ -19,10 +19,14 @@ export class FoodsService {
     return throwError(error)
   }
 
-  getFoods(page: number, limit: number): Observable<Pagination<Food>> {
-    return this.http
-      .get<any>(`${this.endPoint}/index/?page=${page}&limit=${limit}`)
-      .pipe(take(1), catchError(this.handleError))
+  getFoods(page: number, limit: number, search?: string): Observable<Pagination<Food>> {
+    let params = new HttpParams()
+    params = params.append('page', page.toString())
+    params = params.append('limit', limit.toString())
+    if (search) {
+      params = params.append('search', search)
+    }
+    return this.http.get<any>(`${this.endPoint}/index`, { params }).pipe(take(1), catchError(this.handleError))
   }
 
   getFood(id: number): Observable<Food> {
@@ -38,6 +42,8 @@ export class FoodsService {
   }
 
   deleteMultipleFoods(ids: string): Observable<any> {
-    return this.http.delete(`${this.endPoint}?foodIds=${ids}`).pipe(take(1), catchError(this.handleError))
+    let params = new HttpParams()
+    params = params.append('foodIds', ids)
+    return this.http.delete<any>(`${this.endPoint}`, { params }).pipe(take(1), catchError(this.handleError))
   }
 }

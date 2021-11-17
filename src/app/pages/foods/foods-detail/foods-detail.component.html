@@ -38,6 +38,13 @@
         <ng-container *ngIf="control.hasError('required')">กรุณาเลือกวันหมดอายุ</ng-container>
       </ng-template>
     </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzXs]="24" [nzSm]="4" [nzMd]="3" [nzLg]="3">สถานะ</nz-form-label>
+      <nz-col [nzXs]="24" [nzSm]="12" [nzMd]="9" [nzLg]="9">
+        <nz-tag *ngIf="getExpirationStatus() === foodStatus.Expired" [nzColor]="'#f50'">หมดอายุ</nz-tag>
+        <nz-tag *ngIf="getExpirationStatus() === foodStatus.Soon" [nzColor]="'#ffc069'">ใกล้หมดอายุ</nz-tag>
+      </nz-col>
+    </nz-form-item>
   </div>
   <nz-row [nzGutter]="8">
     <div nz-col>

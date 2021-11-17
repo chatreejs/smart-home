@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { NzMessageService } from 'ng-zorro-antd/message'
-import { Food } from 'src/app/core/model/food'
+import { Food, FoodStatus } from 'src/app/core/model/food'
 import { DateOverlap } from 'src/app/core/validators/date-overlap-validator'
 import { FoodsService } from '../foods.service'
 
@@ -18,6 +18,10 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
   public food?: Food
 
   public editMode: boolean = false
+
+  public get foodStatus(): typeof FoodStatus {
+    return FoodStatus
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -110,6 +114,20 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
     if (this.editMode) {
       this.setEditModeAndLoadFoodData()
     }
+  }
+
+  public getExpirationStatus(): FoodStatus {
+    if (this.foodForm.value.expireDate) {
+      const now = new Date()
+      const expireDate = new Date(this.foodForm.value.expireDate)
+      const dateDiff = expireDate.getTime() - now.getTime()
+      if (dateDiff < 0) {
+        return FoodStatus.Expired
+      } else if (dateDiff < 1000 * 60 * 60 * 24 * 3) {
+        return FoodStatus.Soon
+      }
+    }
+    return FoodStatus.Active
   }
 
   public ngOnDestroy(): void {

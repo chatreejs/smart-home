@@ -79,7 +79,17 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
       this.message.error('กรุณากรอกข้อมูลให้ครบถ้วน')
     } else {
       if (this.editMode) {
-        // TODO: update data on server
+        this.foodService.updateFood(this.foodId!, this.foodForm.value).subscribe(
+          () => {
+            this.message.success('แก้ไขข้อมูลอาหารเรียบร้อย')
+            setTimeout(() => {
+              this.router.navigate(['/foods'])
+            }, 1000)
+          },
+          (err: HttpErrorResponse) => {
+            this.message.error(`ไม่สามารถบันทึกได้ (Code: ${err.status})`, { nzDuration: 5000 })
+          }
+        )
       } else {
         this.foodService.createFood(this.foodForm.value).subscribe(
           () => {

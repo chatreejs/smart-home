@@ -16,7 +16,7 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
   public foodForm!: FormGroup
   public foodId?: number
   public food?: Food
-
+  public loadings: boolean = false
   public editMode: boolean = false
 
   public get foodStatus(): typeof FoodStatus {
@@ -53,11 +53,19 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
   }
 
   private setEditModeAndLoadFoodData(): void {
+    this.loadings = true
     this.foodId = +this.route.snapshot.paramMap.get('foodId')!
-    this.foodService.getFood(this.foodId).subscribe((res: Food) => {
-      this.food = res
-      this.initializeForm(this.food)
-    })
+    this.foodService.getFood(this.foodId).subscribe(
+      (res: Food) => {
+        this.loadings = false
+        this.food = res
+        this.initializeForm(this.food)
+      },
+      (err: HttpErrorResponse) => {
+        this.loadings = false
+        this.message.error(`เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ (Code: ${err.status})`, { nzDuration: 5000 })
+      }
+    )
   }
 
   private initializeForm(food: Food): void {
@@ -78,27 +86,32 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
     if (!this.foodForm.valid) {
       this.message.error('กรุณากรอกข้อมูลให้ครบถ้วน')
     } else {
+      this.loadings = true
       if (this.editMode) {
         this.foodService.updateFood(this.foodId!, this.foodForm.value).subscribe(
           () => {
+            this.loadings = false
             this.message.success('แก้ไขข้อมูลอาหารเรียบร้อย')
             setTimeout(() => {
               this.router.navigate(['/foods'])
             }, 1000)
           },
           (err: HttpErrorResponse) => {
+            this.loadings = false
             this.message.error(`ไม่สามารถบันทึกได้ (Code: ${err.status})`, { nzDuration: 5000 })
           }
         )
       } else {
         this.foodService.createFood(this.foodForm.value).subscribe(
           () => {
+            this.loadings = false
             this.message.success('สร้างรายการอาหารใหม่เรียบร้อยแล้ว')
             setTimeout(() => {
               this.router.navigate(['/foods'])
             }, 1000)
           },
           (err: HttpErrorResponse) => {
+            this.loadings = false
             this.message.error(`ไม่สามารถบันทึกได้ (Code: ${err.status})`, { nzDuration: 5000 })
           }
         )

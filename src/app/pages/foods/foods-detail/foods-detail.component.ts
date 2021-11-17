@@ -73,8 +73,8 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
       name: food.name,
       quantity: food.quantity,
       unit: food.unit,
-      buyDate: food.buyDate,
-      expireDate: food.expireDate,
+      buyDate: new Date(food.buyDate),
+      expireDate: new Date(food.expireDate),
     })
   }
 

@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { Food, FoodStatus } from 'src/app/core/model/food'
 import { DateOverlap } from 'src/app/core/validators/date-overlap-validator'
@@ -25,6 +25,7 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private route: ActivatedRoute,
     private foodService: FoodsService,
     private message: NzMessageService
@@ -80,16 +81,12 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
       if (this.editMode) {
         // TODO: update data on server
       } else {
-        const food: Food = {
-          name: this.foodForm.value.name,
-          quantity: +this.foodForm.value.quantity,
-          unit: this.foodForm.value.unit,
-          buyDate: this.foodForm.value.buyDate,
-          expireDate: this.foodForm.value.expireDate,
-        }
-        this.foodService.createFood(food).subscribe(
+        this.foodService.createFood(this.foodForm.value).subscribe(
           () => {
             this.message.success('สร้างรายการอาหารใหม่เรียบร้อยแล้ว')
+            setTimeout(() => {
+              this.router.navigate(['/foods'])
+            }, 1000)
           },
           (err: HttpErrorResponse) => {
             this.message.error(`ไม่สามารถบันทึกได้ (Code: ${err.status})`, { nzDuration: 5000 })
@@ -132,5 +129,6 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.resetForm()
+    this.food = undefined
   }
 }

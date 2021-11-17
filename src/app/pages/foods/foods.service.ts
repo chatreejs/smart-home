@@ -36,4 +36,8 @@ export class FoodsService {
   updateFood(id: number, food: Food): Observable<any> {
     return this.http.put<any>(`${this.endPoint}/${id}`, food).pipe(take(1), catchError(this.handleError))
   }
+
+  deleteMultipleFoods(ids: string): Observable<any> {
+    return this.http.delete(`${this.endPoint}?foodIds=${ids}`).pipe(take(1), catchError(this.handleError))
+  }
 }

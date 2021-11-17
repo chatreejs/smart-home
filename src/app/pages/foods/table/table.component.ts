@@ -89,11 +89,24 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   public onConfirmDelete(): void {
-    this.nzMessageService.success('ลบรายการอาหารเรียบร้อยแล้ว')
+    const foodIds = [...this.setOfCheckedId].join('^')
+    this.foodService.deleteMultipleFoods(foodIds).subscribe(
+      () => {
+        this.nzMessageService.success('ลบรายการอาหารสำเร็จ', { nzDuration: 5000 })
+        this.setOfCheckedId.clear()
+      },
+      (err: HttpErrorResponse) => {
+        this.nzMessageService.error(`เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ (Code: ${err.status})`, { nzDuration: 5000 })
+      },
+      () => {
+        this.loadFoodData()
+      }
+    )
   }
 
   public ngOnDestroy(): void {
     this.foods = []
     this.listOfCurrentPageData = []
+    this.setOfCheckedId.clear()
   }
 }

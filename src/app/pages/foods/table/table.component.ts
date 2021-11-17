@@ -49,7 +49,7 @@ export class TableComponent implements OnInit, OnDestroy {
       (err: HttpErrorResponse) => {
         this.loading = false
         this.foods = []
-        this.nzMessageService.error(`เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ (Code: ${err.status})`)
+        this.nzMessageService.error(`เกิดข้อผิดพลาดที่เซิร์ฟเวอร์ (Code: ${err.status})`, { nzDuration: 5000 })
       }
     )
   }
@@ -74,7 +74,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   public onAllChecked(value: boolean): void {
-    this.listOfCurrentPageData.forEach((item) => this.updateCheckedSet(item.id, value))
+    this.listOfCurrentPageData.forEach((item) => this.updateCheckedSet(item.id!, value))
     this.refreshCheckedStatus()
   }
 
@@ -84,8 +84,8 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   public refreshCheckedStatus(): void {
-    this.checked = this.listOfCurrentPageData.every((item) => this.setOfCheckedId.has(item.id))
-    this.indeterminate = this.listOfCurrentPageData.some((item) => this.setOfCheckedId.has(item.id)) && !this.checked
+    this.checked = this.listOfCurrentPageData.every((item) => this.setOfCheckedId.has(item.id!))
+    this.indeterminate = this.listOfCurrentPageData.some((item) => this.setOfCheckedId.has(item.id!)) && !this.checked
   }
 
   public onConfirmDelete(): void {

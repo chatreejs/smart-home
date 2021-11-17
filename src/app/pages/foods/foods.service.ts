@@ -28,4 +28,12 @@ export class FoodsService {
   getFood(id: number): Observable<Food> {
     return this.http.get<Food>(`${this.endPoint}/${id}`).pipe(take(1), catchError(this.handleError))
   }
+
+  createFood(food: Food): Observable<any> {
+    return this.http.post<any>(this.endPoint, food).pipe(take(1), catchError(this.handleError))
+  }
+
+  updateFood(id: number, food: Food): Observable<any> {
+    return this.http.put<any>(`${this.endPoint}/${id}`, food).pipe(take(1), catchError(this.handleError))
+  }
 }

@@ -1,8 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http'
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { Food } from 'src/app/core/model/food'
+import { DateOverlap } from 'src/app/core/validators/date-overlap-validator'
 import { FoodsService } from '../foods.service'
 
 @Component({
@@ -15,7 +17,7 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
   public foodId?: number
   public food?: Food
 
-  public editMode!: boolean
+  public editMode: boolean = false
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +33,18 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
     } else {
       this.editMode = false
     }
+    this.foodForm = this.fb.group(
+      {
+        name: ['', Validators.required],
+        quantity: [0, Validators.compose([Validators.required, Validators.min(0)])],
+        unit: ['', Validators.required],
+        buyDate: [new Date(), Validators.required],
+        expireDate: [null, Validators.required],
+      },
+      {
+        validators: DateOverlap('buyDate', 'expireDate'),
+      }
+    )
   }
 
   private setEditModeAndLoadFoodData(): void {
@@ -42,20 +56,60 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
   }
 
   private initializeForm(food: Food): void {
-    // TODO: patch form value using food$ from service
-    // - https://angular.io/api/forms/FormGroup#patchValue
+    this.foodForm.patchValue({
+      name: food.name,
+      quantity: food.quantity,
+      unit: food.unit,
+      buyDate: food.buyDate,
+      expireDate: food.expireDate,
+    })
   }
 
   public submitForm(): void {
-    // TODO: submit form to server
-    // if editmode, update data on server
-    // if not editmode, create data on server
+    for (const i in this.foodForm.controls) {
+      this.foodForm.controls[i].markAsDirty()
+      this.foodForm.controls[i].updateValueAndValidity()
+    }
+    if (!this.foodForm.valid) {
+      this.message.error('กรุณากรอกข้อมูลให้ครบถ้วน')
+    } else {
+      if (this.editMode) {
+        // TODO: update data on server
+      } else {
+        const food: Food = {
+          name: this.foodForm.value.name,
+          quantity: +this.foodForm.value.quantity,
+          unit: this.foodForm.value.unit,
+          buyDate: this.foodForm.value.buyDate,
+          expireDate: this.foodForm.value.expireDate,
+        }
+        this.foodService.createFood(food).subscribe(
+          () => {
+            this.message.success('สร้างรายการอาหารใหม่เรียบร้อยแล้ว')
+          },
+          (err: HttpErrorResponse) => {
+            this.message.error(`ไม่สามารถบันทึกได้ (Code: ${err.status})`, { nzDuration: 5000 })
+          }
+        )
+      }
+    }
   }
 
   public resetForm(): void {
-    // TODO: reset form to initial state
-    // - https://angular.io/api/forms/FormGroup#reset
-    // if editmode, load data from server
+    this.foodForm.patchValue({
+      name: '',
+      quantity: 0,
+      unit: '',
+      buyDate: new Date(),
+      expireDate: null,
+    })
+    for (const i in this.foodForm.controls) {
+      this.foodForm.controls[i].markAsPristine()
+      this.foodForm.controls[i].updateValueAndValidity()
+    }
+    if (this.editMode) {
+      this.setEditModeAndLoadFoodData()
+    }
   }
 
   public ngOnDestroy(): void {

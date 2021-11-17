@@ -1,11 +1,11 @@
 export interface Food {
-  id: number
+  id?: number
   name: string
   quantity: number
   unit: string
   buyDate: Date
   expireDate: Date
-  status: FoodStatus
+  status?: FoodStatus
 }
 
 export enum FoodStatus {

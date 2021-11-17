@@ -12,7 +12,9 @@ export function DateOverlap(startDateControl: string, endDateControl: string) {
       }
     }
     if (startControl.value && endControl.value) {
-      if (startControl.value.getTime() > endControl.value.getTime()) {
+      const startDate = new Date(startControl.value)
+      const endDate = new Date(endControl.value)
+      if (startDate.getTime() > endDate.getTime()) {
         endControl.setErrors({ overlap: true })
       } else {
         endControl.setErrors(null)

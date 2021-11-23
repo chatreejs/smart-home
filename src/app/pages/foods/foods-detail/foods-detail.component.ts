@@ -142,12 +142,12 @@ export class FoodsDetailComponent implements OnInit, OnDestroy {
       const expireDate = new Date(this.foodForm.value.expireDate)
       const dateDiff = expireDate.getTime() - now.getTime()
       if (dateDiff < 0) {
-        return FoodStatus.Expired
+        return FoodStatus.EXPIRED
       } else if (dateDiff < 1000 * 60 * 60 * 24 * 3) {
-        return FoodStatus.Soon
+        return FoodStatus.SOON
       }
     }
-    return FoodStatus.Active
+    return FoodStatus.ACTIVE
   }
 
   public ngOnDestroy(): void {

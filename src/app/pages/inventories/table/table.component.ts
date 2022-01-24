@@ -7,7 +7,7 @@ import { Inventory, InventoryStatus } from 'src/app/core/model/inventory'
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
   public checked: boolean
   public indeterminate: boolean
 
@@ -22,35 +22,6 @@ export class TableComponent implements OnInit {
   public constructor(private nzMessageService: NzMessageService) {
     this.checked = false
     this.indeterminate = false
-  }
-
-  public ngOnInit(): void {
-    this.listOfInventoryData = [
-      {
-        id: 1,
-        name: 'น้ำยาซักผ้า',
-        quantity: 1,
-        maxQuantity: 2,
-        unit: 'ถุง',
-        status: 0,
-      },
-      {
-        id: 2,
-        name: 'ยาสีฟัน',
-        quantity: 1,
-        maxQuantity: 2,
-        unit: 'หลอด',
-        status: 0,
-      },
-      {
-        id: 3,
-        name: 'น้ำยาล้างจาน',
-        quantity: 0,
-        maxQuantity: 2,
-        unit: 'หลอด',
-        status: 1,
-      },
-    ]
   }
 
   public updateCheckedSet(id: number, checked: boolean): void {

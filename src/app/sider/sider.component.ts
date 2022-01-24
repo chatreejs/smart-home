@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
   templateUrl: './sider.component.html',
   styleUrls: ['./sider.component.scss'],
 })
-export class SiderComponent implements OnInit {
+export class SiderComponent {
   private _isCollapsed: boolean
 
   @Input()
@@ -28,6 +28,4 @@ export class SiderComponent implements OnInit {
     this._isCollapsed = false
     this.innerWidth = 0
   }
-
-  public ngOnInit(): void {}
 }

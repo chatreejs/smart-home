@@ -8,6 +8,6 @@ export interface Inventory {
 }
 
 export enum InventoryStatus {
-  Active = 0,
-  OutOfStock,
+  OUT_OF_STOCK = 'OUT_OF_STOCK',
+  IN_STOCK = 'IN_STOCK',
 }

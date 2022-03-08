@@ -28,7 +28,7 @@ interface BreadcrumbConfig {
     `,
   ],
 })
-export class BreadcrumbComponent implements OnInit, OnDestroy {
+export class BreadcrumbComponent implements OnDestroy {
   public breadcrumbs: BreadcrumbConfig[]
 
   private routerSubscription: Subscription
@@ -43,8 +43,6 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
         this.updateBreadCrumb()
       })
   }
-
-  public ngOnInit(): void {}
 
   private updateBreadCrumb(): void {
     this.breadcrumbs = this.getBreadCrumb(this.activatedRoute.snapshot)

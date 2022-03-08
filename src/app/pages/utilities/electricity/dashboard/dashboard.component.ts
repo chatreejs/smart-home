@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { NzMessageService } from 'ng-zorro-antd/message'
 import { shortMonthNames } from 'src/app/core/constant/month-names-th'
 import { Electricity, ElectricityStatus } from 'src/app/core/model/electricity'
@@ -155,6 +155,7 @@ export class DashboardComponent implements OnInit {
           fill: true,
           borderColor: '#fe8019',
           backgroundColor: 'rgba(254, 128, 25, 0.1)',
+          // backgroundColor: gradient,
           tension: 0.5,
           pointRadius: 5,
           pointBorderWidth: 2,

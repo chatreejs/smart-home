@@ -10,17 +10,16 @@
   <nz-layout>
     <app-sider [(isCollapsed)]="isCollapsed" [innerWidth]="innerWidth"></app-sider>
     <nz-layout
-      [className]="
-        innerWidth < 992
-          ? 'main main__mobile-collapsed'
-          : isCollapsed
-          ? 'main main__collapsed'
-          : 'main main__uncollapsed'
-      "
+      class="main"
+      [class.main__mobile-collapsed]="innerWidth < 992"
+      [class.main__collapsed]="isCollapsed"
+      [class.main__uncollapsed]="!isCollapsed"
     >
+      >
       <div
         *ngIf="innerWidth < 992"
-        [className]="isCollapsed ? 'overlay' : 'overlay overlay-toggled'"
+        class="overlay"
+        [class.overlay-toggled]="!isCollapsed"
         (click)="isCollapsed = true"
       ></div>
       <nz-content>

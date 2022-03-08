@@ -64,7 +64,7 @@
           <a [routerLink]="[data.id]">{{ data.name }}</a>
         </td>
         <td>
-          <nz-tag *ngIf="data.status === inventoryStatus.OutOfStock" [nzColor]="'#f50'">หมด</nz-tag>
+          <nz-tag *ngIf="data.status === inventoryStatus.OUT_OF_STOCK" [nzColor]="'#f50'">หมด</nz-tag>
         </td>
         <td>{{ data.quantity }} / {{ data.maxQuantity }}</td>
       </tr>

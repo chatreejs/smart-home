@@ -3,6 +3,11 @@ import { RouterModule, Routes } from '@angular/router'
 
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/dashboard',
+  },
+  {
     path: 'electricity',
     loadChildren: () => import('./electricity/electricity.module').then((m) => m.ElectricityModule),
     data: { breadcrumb: 'ไฟฟ้า' },

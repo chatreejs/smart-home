@@ -18,7 +18,8 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh 'npm install'
+        sh 'npm ci'
+        sh 'npm run ng -- build --output-path=dist'
       }
     }
   }

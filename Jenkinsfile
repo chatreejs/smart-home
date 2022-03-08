@@ -2,7 +2,7 @@ pipeline {
   agent { label 'slave-01' }
 
   environment {
-    BRANCH_NAME = 'master'
+    BRANCH_NAME = 'main'
   }
 
   tools {
